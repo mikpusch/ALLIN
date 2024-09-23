@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html>
+    <head>
+ 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<script>
+
+/*
+Parameters: none
+Returns:
+    The function returns an empty rule. The object structure defines rules.
+*/
+function InitialzeRule(){
+	let rule = {
+			RuleType: 0, 				// 0: common rule to define text below each block (indicated by the keword "ALL"); 1: rule for a specific residue; 2: rule to write a legend for residues color code 
+			RuleDefinesColor: false, 
+			RuleDefinesBold: false,
+			RuleDefinesItalic: false,
+			RuleDefinesMouseOver: false,
+			RuleDefinesFontColor: false,
+			NumberOfCharBoxWritten: 0,
+			ReferenceSequence: 0,
+			FromResidue: 0,
+			ToResidue: 0,
+			TextToShowMouseOver: "",
+			ColorText: "",
+			FontColorText: "",
+			BoxText: "",
+			TextToShowInLegend: "",
+			LegendText: ""
+
+	};
+	return rule;
+}
+
+// the global variable that contains the final html output
+var OutputString="";
+var AA = []; // the vector of sequences of alignment
+
+/*
+Parameters:
+	c: a string
+Returns:
+    The function adds the string to the global variable OutputString and adds a line break.
+*/
+function wrlBF(c){
+	OutputString = OutputString + c + "\n";
+}
+
+/*
+Parameters:
+	ma: the array of the sequence alignment
+	seq: the index of the sequence within the alignment. I.e. seq=0 corresponds to the first protein etc. 
+	globalindex: the index of the position in the overall alignment. This in general larger than the individual indexes because of the presence of gaps.
+Returns:
+    The function returns the corresponding index, if not a gap. If the position corresponds to a gap the function returns -1.
+*/
+function GetSequenceIndex(ma, seq, globalindex){
+	if (seq<0) return 0;
+	if (seq>=ma.length){
+		return 0;
+	}
+	if (globalindex<0) return 0;
+
+	let fa = ma[seq].seq; 
+	if (globalindex>=fa.length) return 0;
+	let i=0;
+	let result=-1;
+	while (true){
+		if (i>=fa.length){//s.size()){
+			return result;
+		}
+		if (fa[i] != '-'){
+			result++;
+		}
+		if (i>=globalindex){
+			return result;
+		}
+		i++;
+	}
+}
+
+/*
+Parameters:
+	Rules: the array of all rules
+	seq: the index of the sequence within the alignment. I.e. seq=0 corresponds to the first protein etc. 
+	Index: the amino acid number within the respective protein
+Returns:
+    The function returns the corresponding rule for the specified residue, if one is found. Otherwise the function returns false.
+*/
+function ScanForRule(Rules, seq, Index){//, AnnotationRule & rule){
+	for (let i=0; i<Rules.length; i++){
+		let r = Rules[i];
+		if (r.RuleType == 1){
+			if (r.FromResidue == Index){
+				if (r.ReferenceSequence == seq){
+					return r;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+/*
+Parameters:
+	seq: the index of the sequence within the alignment. I.e. seq=0 corresponds to the first protein etc. 
+	residueindex: the amino acid number within the respective protein
+Returns:
+    For example for seq = 2 and residueindex = 200 the function returns: "2_200". This is used as an html-ID to check for the mouseover and click events.
+*/
+function GetTagString(seq, residueindex){//, CString & tagstring){
+	let tagstring = seq.toString();
+	tagstring =  tagstring + "_";
+	tagstring =  tagstring + residueindex.toString();
+	return tagstring;
+}
+
+/*
+Parameters:
+	c: the amino acid residue as a single character
+	rule: the corresponding rule
+	seq: the index of the resepctive protein (i.e. 0 for the first protein, ...)
+	resindex: the amino acid number within the respective protein
+	MakeTagString: boolean to test whether a tagstring should be made
+Returns:
+    The function returns the string to be added to the html-string
+*/
+function MakeHtmlFromRule(c, rule, seq, resindex, MakeTagString){
+	let InsertString = "";
+	if (MakeTagString){
+		let tagstring = GetTagString(seq, resindex);
+		InsertString += '<span id=\"'+tagstring+ '\">';
+	}
+	if (rule.RuleDefinesBold){
+		 InsertString += "<b>";
+	}
+	if (rule.RuleDefinesItalic){
+		 InsertString += "<i>";
+	}
+	if (rule.RuleDefinesColor){
+		InsertString += '<span style=\"background-color:';
+		InsertString += rule.ColorText + '\";>';
+	}
+	if (rule.RuleDefinesFontColor){
+		InsertString += '<font color=\"';
+		InsertString += rule.FontColorText + '\";>';
+	}
+	if (rule.RuleDefinesMouseOver){
+		InsertString += '<span title=';
+		InsertString += rule.TextToShowMouseOver;
+		InsertString += ">";
+	}
+	InsertString += c;
+	if (rule.RuleDefinesMouseOver){
+		InsertString += "<\/span>";
+	}							 
+	if (rule.RuleDefinesFontColor){
+		InsertString += "<\/font>";
+	}
+	if (rule.RuleDefinesColor){
+		InsertString += "<\/span>";
+	}
+	if (rule.RuleDefinesItalic){
+		InsertString += "<\/i>";
+	}
+	if (rule.RuleDefinesBold){
+		InsertString += "<\/b>";
+	}
+	if (MakeTagString){
+		InsertString += "<\/span>";
+	}
+	
+	return InsertString;
+}
+
+/*
+Parameters:
+	ma: the array of the sequence alignment
+	Rules: the array of all rules
+	j: index of the overall alignment for which a rule with the "ALL" tag is looked for
+Returns:
+    If a rule is found, the functions returns the rule and the character to place below the alignment; otherwise it returns false
+*/
+function GetGeneralRule(ma, Rules, j){
+	let rule = InitialzeRule();
+	for (let i=0; i<Rules.length; i++){
+		let r = Rules[i];
+		if (r.RuleType == 0){
+			let s = r.ReferenceSequence;
+			let refindex = GetSequenceIndex(ma, s, j);
+			if ((refindex>=r.FromResidue) && (refindex<=r.ToResidue)){
+				rule = r;
+				let l=r.BoxText.length;
+				if (l<1){
+					let c=' ';
+					return {Rule: rule, ch: c};
+				}
+				let c = r.BoxText.charAt(r.NumberOfCharBoxWritten % l);
+				r.NumberOfCharBoxWritten++;
+				Rules[i] = r;
+				return {Rule: rule, ch: c};
+			}
+		}
+	}
+	return false;
+}
+
+/*
+Parameters:
+	NCharPerRow: the length of each row of the alignment
+	ma: the array of the sequence alignment
+	Rules: the array of all rules
+Returns:
+	The functions returns no result, but adds for each character of the alignemnt the corresponding html code to the output string.
+	The function also adds the start and end numbers of each sequence in each line and adds the text below each block of the alignemnt defined by the "ALL" rules
+*/
+function WriteHtmlAlignTable(NCharPerRow, ma, Rules){
+	let NSeq = ma.length; //Aligns.size();
+	let iStart=0;
+	let iEnd = NCharPerRow-1;
+//	vector<int> CurrentIndex;
+	let CurrentIndex = [];
+	for (let i=0; i<NSeq; i++){
+		CurrentIndex.push(0);
+	}
+	let l="";
+	wrlBF('<table id=\"ALIGNMENT_TABLE\">')
+	while (true){
+		if (iStart>=ma[0].seq.length){//ma.Aligns[0].Sequence.size()){
+			break;
+		}
+		for (let iseq=0; iseq<NSeq; iseq++){
+			wrlBF("<tr> ");
+			l = "<td>";
+			let Title = ma[iseq].name.trim();; //ma.Aligns[i].Title;
+			l += Title;
+			l += "<\/td>";
+			wrlBF(l);
+
+			let iStartSeq = GetSequenceIndex(ma, iseq, iStart)+1;
+
+			if (iStartSeq<1) iStartSeq=1;
+			l = "<td>";
+			l += iStartSeq.toString() + "<\/td>";
+			wrlBF(l);
+
+			l = "<td>";
+			for (let j=iStart; j<=iEnd; j++){
+				if (j<ma[iseq].seq.length){
+					let c = ma[iseq].seq[j];
+					 
+					if (c != '-'){
+						CurrentIndex[iseq]++;
+						let rule = ScanForRule(Rules, iseq, CurrentIndex[iseq]); 
+						if (rule){
+							let InsertString = MakeHtmlFromRule(c, rule, iseq, CurrentIndex[iseq], true);
+							l += InsertString;
+						}
+						else{
+							let rule=InitialzeRule();
+							rule.RuleDefinesMouseOver = true;
+							rule.TextToShowMouseOver = c;
+							rule.TextToShowMouseOver += CurrentIndex[iseq].toString();
+							let InsertString = MakeHtmlFromRule(c, rule, iseq, CurrentIndex[iseq], true);
+
+							l += InsertString;
+						}
+					}
+					else{
+						l+= c;
+					}
+				}
+				else{
+					l += "&nbsp"; // forced space
+				}
+			}
+			l += "<\/td>";
+			wrlBF(l);
+
+			let iEndSeq = GetSequenceIndex(ma, iseq, iEnd)+1;
+			iEndSeq = CurrentIndex[iseq];
+			l = "<td>";
+			l += iEndSeq.toString() + "<\/td>";
+			wrlBF(l);
+			wrlBF("   <\/tr>")
+		}
+		// Now the comnon line on bottom displaying helices etc
+		wrlBF("   <tr> ");
+		wrlBF("<td>&nbsp<\/td>") // empty sequence name
+		wrlBF("<td>&nbsp<\/td>") // empty start index
+		
+		l = "<td>";
+//		int CharWritten = 0;  // The characters written have been delegated to the rule itself
+		for (let j=iStart; j<=iEnd; j++){
+			let result = GetGeneralRule(ma, Rules, j); 
+			if (result){  // test if there is a rule defining a box
+//				CharWritten++;
+				let rule = result.Rule;
+				let c = result.ch;
+//				CString InsertString;
+				let InsertString = MakeHtmlFromRule(c, rule, ma[rule.ReferenceSequence].seq, true);
+				l += InsertString;
+			}
+			else{
+				l+="&nbsp";
+			}
+		}
+		l += "<\/td>";
+		wrlBF(l);
+		wrlBF("<td>&nbsp<\/td>") // Empty end index column
+		wrlBF("   <\/tr>")
+		iStart += NCharPerRow;
+		iEnd += NCharPerRow;
+		wrlBF("   <tr> ");
+		wrlBF("<td>&nbsp<\/td>") // empty sequence name
+		wrlBF("<td>&nbsp<\/td>") // empty start index
+		wrlBF("<td>&nbsp<\/td>") // empty sequence
+		wrlBF("<td>&nbsp<\/td>") // Empty end index column
+		wrlBF("   <\/tr>")
+	}
+	wrlBF(" <\/table>")
+}
+
+/*
+Parameters:
+	FontSize: a float number of the font size in viewport units. Default is 0.78
+Returns:
+	The functions returns no result, but adds the fixed HTML header to the output string.
+*/
+function Write3DMolHeader(FontSize){
+	wrlBF("<html>")
+	wrlBF(" <head>")
+	wrlBF('<meta name=\"robots\" content=\"noindex\">')
+    wrlBF("   <style>")
+    wrlBF("     table, td, th {")
+    wrlBF("        border: 0px solid white;")
+  //  wrlBF("        width: 1000px;")
+	wrlBF(" 		font-family:Courier New;")
+	
+	let l = " 		font-size:";
+	let s = FontSize.toString();
+	l+=s; //CString(s);
+	l+="px;";
+	wrlBF("font-size:"+s+"vw;");
+
+	wrlBF(" 		text-align:left;")
+    wrlBF("      }")
+    wrlBF("   </style>");
+	wrlBF(" <style>");
+	wrlBF(" * {");
+	wrlBF("   box-sizing: border-box;");
+	wrlBF(" }");
+ 
+	wrlBF("/* Create two equal columns that floats next to each other */");
+	wrlBF(".column {");
+	wrlBF("  float: left;");
+
+	wrlBF("  width: 50%;");
+	wrlBF("  padding: 10px;");
+	wrlBF("  height: 300px; /* Should be removed. Only for demonstration */");
+	wrlBF("}");
+
+	wrlBF("/* Clear floats after the columns */");
+	wrlBF(".row:after {");
+	wrlBF('  content: ;');
+	wrlBF("  display: table;");
+	wrlBF("  clear: both;");
+	wrlBF("}");
+	wrlBF("</style>");
+	wrlBF('<script src="https:\/\/www.ncbi.nlm.nih.gov\/Structure\/icn3d\/lib\/jquery.min.js"><\/script>');
+	wrlBF('<script>');
+	wrlBF('		if (typeof $ == "function") {');
+    wrlBF('        } else {');
+	
+	wrlBF('		   	let D = document;');
+	wrlBF('		   	let scriptNode = D.createElement ("script");');
+	wrlBF('		   	scriptNode.type  = "text\/javascript";');
+	wrlBF('		   	scriptNode.src   = "jquery.min.js";');
+	wrlBF('		   	let targ = D.getElementsByTagName ("head")[0] || D.body || D.documentElement;');
+    wrlBF('		   	targ.appendChild (scriptNode);');
+
+//	wrlBF('		   let myScript = document.createElement("script");');
+//	wrlBF('			myScript.setAttribute("src", "jquery.min.js");');
+//	wrlBF('			document.body.appendChild(myScript);');
+
+    wrlBF('         }');
+	wrlBF('<\/script>');
+
+	wrlBF('<script src="http:\/\/3Dmol.csb.pitt.edu\/build\/3Dmol-min.js"><\/script>');
+    wrlBF('<script>');
+	wrlBF('		if (typeof $3Dmol == "object") {');
+    wrlBF('        } else {');
+	wrlBF('		   	let D = document;');
+	wrlBF('		   	let scriptNode = D.createElement ("script");');
+	wrlBF('		   	scriptNode.type  = "text\/javascript";');
+	wrlBF('		   	scriptNode.src   = "3Dmol-min.js";');
+	wrlBF('		   	let targ = D.getElementsByTagName ("head")[0] || D.body || D.documentElement;');
+    wrlBF('		   	targ.appendChild (scriptNode);');
+//	wrlBF('		   let myScript = document.createElement("script");');
+//	wrlBF('			myScript.setAttribute("src", "3Dmol-min.js");');
+//	wrlBF('			document.body.appendChild(myScript);');
+    wrlBF('         }');
+    wrlBF('<\/script>');
+
+	wrlBF('<script src="My3dMol-JavaScript.js"><\/script>');
+	wrlBF(" </head>");
+}
+
+/*
+Parameters:
+	Lines: an array of strings
+Returns:
+	a single multiline string.
+*/
+function MakeStringOfArrayOfLines(Lines){
+	let c="";
+	for (let i=0; i<Lines.length; i++){
+		c += Lines[i];
+		if (i<(Lines.length-1)){
+			c += "\n";
+		}
+	}
+	return c;
+}
+
+/*
+Parameters:
+	line: a string
+Returns:
+	true if the first character is ">" and there is at least one other character; otherwise false
+*/
+function IsFirstLineOfFasta(line){
+	if (line.length<2){
+		return false;
+	}
+	return (line[0]==='>');
+}
+
+/*
+Parameters:
+	line: a string
+Returns:
+	the string without the first character (i.e. without ">")
+*/
+function GetFastaName(line){
+	return line.substr(1);
+}
+
+/*
+Parameters:
+	startline: index of the array where to start reading the next sequence of the alignment
+	ArrayOfLines: array of all strings of the alignment
+Returns:
+	the name of the sequence, the sequence as an array of strings, and the line index to look for the next sequence. If this was the last sequence the next line index is set to -1 to signal the end.
+	If an error occurs, returns false
+*/
+function ReadSequence(startline, ArrayOfLines){
+	let l=startline;
+	let seq = [];
+	if (!IsFirstLineOfFasta(ArrayOfLines[l])){
+		alert("is not first");
+		return false;
+	}
+	let Name = GetFastaName(ArrayOfLines[l]);
+	l++;
+	if (l>=ArrayOfLines.length){
+		alert("l>= length");
+		return false;
+	}
+	let NewIndex = -1;
+	while (true){
+		let line = ArrayOfLines[l];
+		for (i=0; i<line.length; i++){
+			let c=line[i];
+//			if ((c=='-') || ((c>='a') && (c<='Y'))){
+				seq.push(c);
+//			}
+		}
+		l++;
+		if (l>=ArrayOfLines.length){
+			break;
+		}
+		if (IsFirstLineOfFasta(ArrayOfLines[l])){
+			NewIndex = l;
+			break;
+		}
+	}
+	return { name: Name, newindex: NewIndex, seq: seq };
+}
+
+/*
+Parameters:
+	Line: a string
+Returns:
+	The function returns the next word of the string (words are separated by spaces) and the line without the found word.
+	If no word is found the function returns false.
+	Text in quotes (" ... ") is treated as a single word.
+*/
+function GetNextWord(Line){
+	let Word ="";
+	Line = Line.trim(); //	line.TrimRight();
+	if (Line.length<1) return false;
+
+	let InString = false;
+	while (true){
+		
+		let c = Line.charAt(0); //.GetAt(0);
+		let l = Line.length; //GetLength();
+
+//		if (c==34){ //'\"'){
+		if (c=='"'){//34){ //'\"'){
+			if (!InString){
+				InString = true;
+			}
+			else{
+				Word = Word + c;
+				if (l>1){
+					Line = Line.substr(1, Line.length);//line.Right(l-1);
+				}
+				else{
+					Line ="";
+				}
+				return {word: Word, line: Line}; //true;
+			}
+		}
+		if (c==' '){
+			if (!InString){
+				if (Line.length>1){
+					Line = Line.substr(1, Line.length);//line.Right(l-1);
+				}
+				else{
+					Line ="";
+				}
+				if (Word.length<1){
+					return false;
+				}
+				else{
+					return {word: Word, line: Line}; //(Word.GetLength()>0);
+				}
+			}
+			else{
+
+				Word += c;
+				if (l>1){
+					Line = Line.substr(1, Line.length);//line.Right(l-1);
+				}
+				else{
+					Line = "";
+					return {word: Word, line: Line};//true;
+				}
+			}
+		}
+		else{
+			Word += c;
+			if (l>1){
+				Line = Line.substr(1, Line.length);//line = line.Right(l-1);
+			}
+			else{
+				Line = "";
+				return {word: Word, line: Line}; //true;
+			}
+		}
+	}
+	return false;
+}
+
+/*
+Parameters:
+	s1, s2: strings
+Returns:
+	the function returns true if both strings are identical not considering case
+*/
+function CompareNoCase(s1, s2){
+	s3=s1.toUpperCase();
+	s4=s2.toUpperCase();
+	return (s3===s4);
+}
+
+/*
+Parameters:
+	Word: a string, presumbly "MOUSEOVER:'some text to show'"
+Returns:
+	if the string is of the above format the function returns the text 'some text to show'
+	otherwise the function returns false
+*/
+function WordIsMouseOver(Word){
+	l=Word.length;
+	comp="MOUSEOVER:";
+	if (l<comp.length){
+		return false;
+	}
+	let comp2=Word.substr(0, comp.length);
+	if (CompareNoCase(comp, comp2)){
+		let TextToShow = Word.substr(comp.length, l);
+		return TextToShow;
+	}
+	return false;
+}
+
+/*
+Parameters:
+	Word: a string, for example "COLOR:red"
+Returns:
+	if the string is of the above format the function returns the text "red"
+	otherwise the function returns false
+*/
+function WordIsColor(Word){
+	let l=Word.length;
+	let c
+	comp="COLOR:";
+	if (l<comp.length){
+		return false;
+	}
+	let comp2=Word.substr(0, comp.length);
+	if (CompareNoCase(comp, comp2)){
+		let TextToShow = Word.substr(comp.length, l);
+		return TextToShow;
+	}
+	return false;
+}
+
+/*
+Parameters:
+	Word: a string, for example "FONTCOLOR:red"
+Returns:
+	if the string is of the above format the function returns the text "red"
+	otherwise the function returns false
+*/
+function WordIsFontColor(Word){
+	let l=Word.length;
+	let comp="FONTCOLOR:";
+	if (l<comp.length){
+		return false;
+	}
+	let comp2=Word.substr(0, comp.length);
+	if (CompareNoCase(comp, comp2)){
+//	if (Word.Left(comp.GetLength()).CompareNoCase(comp) == 0){
+		let TextToShow = Word.substr(comp.length, l);
+		return TextToShow;
+	}
+	return false;
+}
+
+/*
+Parameters:
+	c: a character
+Returns:
+	the function returns true if c=0, ..., 9 
+	otherwise the function returns false
+*/
+function isdigit(c){
+	if ((c>="0") && (c<="9")){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+		
+/*
+Parameters:
+	Word: a string
+Returns:
+	the function returns the number as integer if the string is an integer number 
+	otherwise the function returns false
+*/
+function WordIsNumber(Word){
+	for (let i=0; i<Word.length; i++){
+		if (!isdigit(Word.charAt(i))){
+			return false;
+		}
+	}
+	number = parseInt(Word);
+	return number;
+}
+
+/*
+Parameters:
+	line: a string
+	ma: the array of the sequence alignment
+Returns:
+	The functions tries to translate the string into a rule. Upon success the function returns the rule. Otherwise, the function return false.
+*/
+function ParseRule(line, ma){
+	let rule = InitialzeRule();
+		
+	//		int RuleType; 	// 0: applies to all, structure below (e.g. for helices)
+							// 1: applies to a residue
+							// 2: define the legend of color code
+	
+	let result = GetNextWord(line);
+	if (!result){
+		return false;
+	}
+	let Word=result.word;
+	line = result.line;
+	if (Word =="ALL"){
+		rule.RuleType = 0;
+		rule.ReferenceSequence = 0;
+	}
+	else{
+		if (Word =="LEGEND") {
+			rule.RuleType = 2;
+			let result = GetNextWord(line);
+			if (!result){
+				return false;
+			}
+			let Word=result.word;
+			line = result.line;
+			rule.TextToShowInLegend=Word;
+			result = GetNextWord(line);
+			if (!result){
+				return false;
+			}
+			Word=result.word;
+			line = result.line;
+			rule.LegendText=Word;
+		}
+		else{
+			let seq = 0;
+			let result = WordCorrespondsToSequence(Word, ma);
+			if (result>=0){
+				rule.RuleType = 1;
+				rule.ReferenceSequence = result;
+			}
+			else{
+				alert(Word + ": no sequence found to which rule applies");
+				return false;
+			}
+		}
+		
+	}
+	let FromDefined = false;
+	let ToDefined = false;
+
+	Word ="";
+	while (true){
+		let result = GetNextWord(line);
+		if (!result){
+			break;
+		}
+		Word=result.word;
+		line = result.line;
+		result = WordCorrespondsToSequence(Word, ma);
+		if (result >=0){
+			if (rule.RuleType != 0){
+				alert("a second instance of a sequence name in a rule concerning a specific sequence is unexpected");
+				return false;
+			}
+			rule.ReferenceSequence = result;
+		}
+		else{
+			let comp3="BOLD";
+			if (CompareNoCase(Word, comp3)){
+				rule.RuleDefinesBold = true;
+			}
+			else{
+				let comp3="ITALIC";
+				if (CompareNoCase(Word, comp3)){
+					rule.RuleDefinesItalic = true;
+				}
+
+				else{
+					let result = WordIsMouseOver(Word);
+	//				if (WordIsMouseOver(Word, rule.TextToShowMouseOver)){
+					if (result){
+						rule.RuleDefinesMouseOver = true;
+						rule.TextToShowMouseOver = result;
+					}
+					else{
+						let result = WordIsColor(Word);
+//						if (WordIsColor(Word, rule.ColorText)){
+						if (result){
+							rule.RuleDefinesColor = true;
+							rule.ColorText = result;
+						}
+						else{
+							let result = WordIsFontColor(Word);
+							if (result){
+						//	if (WordIsFontColor(Word, rule.FontColorText)){
+								rule.RuleDefinesFontColor = true;
+								rule.FontColorText = result;
+							}
+							else{
+	//							int number;
+								let result = WordIsNumber(Word);
+								if (result){
+//								if (WordIsNumber(Word, number)){
+									if (FromDefined){
+										if (ToDefined){
+											return false;
+										}
+										ToDefined = true;
+										rule.ToResidue = result;
+									}
+									else{
+										FromDefined = true;
+										rule.FromResidue = result;
+									}
+								}
+								else{
+									rule.BoxText = Word;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return rule;
+}
+
+
+function EliminateQuotationMarks(text){
+	if (text.length>0){
+
+		let firstchar = text.substring(0, 1);
+		if ((firstchar=='"') || (firstchar=="'")){
+			text = text.substring(1, text.length-1);
+		}
+		if (text.length>0){
+			let lastchar = text.substring(text.length-1, 1);
+			if ((lastchar=='"') || (lastchar=="'")){
+				text = text.substring(0, text.length-1);
+			}
+		}
+		return text;
+	}
+}
+
+
+
+
+function CreateLegendText(rule){
+
+	
+	if (rule.RuleType != 2){
+		return "";
+	}
+	let InsertString = "";
+
+	if (rule.RuleDefinesBold){
+		 InsertString += "<b>";
+	}
+	if (rule.RuleDefinesItalic){
+		 InsertString += "<i>";
+	}
+	if (rule.RuleDefinesColor){
+		InsertString += '<span style=\"background-color:';
+		InsertString += rule.ColorText + '\";>';
+	}
+	if (rule.RuleDefinesFontColor){
+		InsertString += '<font color=\"';
+		InsertString += rule.FontColorText + '\";>';
+	}
+	InsertString +=  EliminateQuotationMarks(rule.TextToShowInLegend);
+	if (rule.RuleDefinesFontColor){
+		InsertString += "<\/font>";
+	}
+	if (rule.RuleDefinesColor){
+		InsertString += "<\/span>";
+	}
+	if (rule.RuleDefinesItalic){
+		InsertString += "<\/i>";
+	}
+	if (rule.RuleDefinesBold){
+		InsertString += "<\/b>";
+	}
+	
+	return InsertString;
+	
+}
+	/*
+Parameters:
+	Word: a string
+	ma: the array of the sequence alignment
+Returns:
+	If the string corresponds to the name of one of the sequences in the alignment, the function returns the respective index. Otherwise, the function returns -1. 
+*/
+function WordCorrespondsToSequence(Word, ma){
+	let comp = Word.toUpperCase();
+	for (i=0; i<ma.length; i++){
+		let title = ma[i].name.toUpperCase();
+		if (comp == title){//.CompareNoCase(title)==0){
+//			seq = i;
+			return i; //true;
+		}
+	}
+	return -1;
+}
+
+/*
+Parameters:
+	l: the current index in the array of lines of the PDB-text where to start reading (initially: 0)
+	PdbLines: array of lines of the PDB-text
+	ma: the array of the sequence alignment
+Returns:
+	If a pdb is read successfully, the function returns the respective index within the sequence alignment, the new line index to look for the next pdb (-1, if this was the last one), the pdb as an array of lines, and the name of the pdb/sequence.
+	Othwerwise the function returns false
+*/
+function ReadPdb(l, PdbLines, ma){
+	let pdb = [];
+	if (!IsFirstLineOfFasta(PdbLines[l])){
+		alert("> is not first in list of pdbs");
+		return false;
+	}
+	let Name = GetFastaName(PdbLines[l]);
+	let seq = WordCorrespondsToSequence(Name, ma);
+	
+	if (seq<0){
+		alert("no corresponding sequence to pdb file found");
+		return false;
+	}
+	l++;
+	if (l>=PdbLines.length){
+		alert("l>= length");
+		return false;
+	}
+	let NewIndex = -1;
+	while (true){
+		if (IsFirstLineOfFasta(PdbLines[l])){
+			if (pdb.length>0){
+				NewIndex = l;
+			}
+			break;
+		}
+		pdb.push(PdbLines[l]);
+		l++;
+		if (l>=PdbLines.length){
+			break;
+		}
+	}
+	return { SequenceIndex: seq, newindex: NewIndex, Name: Name, PDB: pdb };
+
+}
+
+/*
+Parameters:
+	ma: the array of the sequence alignment
+Returns:
+	The functions returns no result, but adds directly to the output string html-text for each residue of the sequence alignment. The example is for the start methionine of the second sequence:
+	"document.getElementById("2_1").addEventListener("click", function(){callSelectFocus(2, 1); });"
+*/
+function WriteListenerScript(ma){
+	let NSeq = ma.length;
+
+	let l="";
+	wrlBF("<script>")
+	for (let seq=0; seq<NSeq; seq++){
+		let seqindex = 1;
+		for (let j=0; j<ma[seq].seq.length; j++){
+			if (ma[seq].seq[j] != '-'){
+				let tagstring = GetTagString(seq, seqindex);
+				let FunctionString = "document.getElementById(\"";
+				FunctionString += tagstring + "\").addEventListener(\"click\", function(){";
+				FunctionString += "callSelectFocus(";
+				FunctionString += seq.toString()+", ";
+				FunctionString += seqindex.toString() + "); });";
+				seqindex++;
+				wrlBF(FunctionString);
+			}
+		}
+	}
+	wrlBF("<\/script>")
+}
+
+
+function spinnerOnOff(bolStatus){
+	let objDivSpinner = document.getElementById('divSpinner');
+	switch(bolStatus){
+		case true:
+			objDivSpinner.classList.remove('d-none');
+			break;
+		case false:
+			objDivSpinner.classList.add('d-none');		
+			break;
+		default:
+			console.log('Unknown spin status');
+			break;
+	}
+}
+
+/*
+Parameters: none
+Returns:
+	The function is only a helper funtion to put the main worker function onto the JS event loop to make sure that the text "working ..." appears in the Info field and the spinner is activated.
+*/
+function WaitWork(){
+//console.log("enter wait work");
+    document.getElementById('textInfo').value ='working ...';
+	spinnerOnOff(true);
+    setTimeout( MakeHtml, 1);
+//console.log("exit wait work");
+}
+
+/*
+Parameters: none
+Returns:
+	The function tries to read the alignment. returns true if successful.
+*/
+var resultalign = false;
+async function ReadAlignment(InfoField){
+	resultalign = false;
+	let align = document.getElementById('textAlign').value;
+	let nSizeAlignment = align.length;
+	if (nSizeAlignment<1){
+		InfoField.value = "alignment too short (<1)";
+		return false;
+	}
+	const AlignArray = align.split('\n');
+	if (AlignArray.length<1){
+		InfoField.value = "alignment too short (<1)";
+		return false;
+	}
+	if (!IsFirstLineOfFasta(AlignArray[0])){
+		InfoField.value = "first line is not fasta";
+		return false;
+	}
+	AA = []; // the vector of sequences of alignment
+	var NSequences = 0;
+	let line = 0;
+	//WaitWork();
+	
+	while (true){
+		let result = ReadSequence(line, AlignArray);
+		if (result==false){
+			InfoField.value += "\n"+"error reading alignment";
+			readalign = false;
+			return false;
+		}
+		let NewSeq = {name: result.name, seq: result.seq};
+//		Names.push(result.name);
+		AA.push(NewSeq);
+		NSequences++;
+		line = result.newindex;
+		if (line<0){
+			break;
+		}
+	}
+	let size0=AA[0].seq.length;
+	for (let i=1; i<NSequences; i++){
+		if (AA[i].seq.length != size0){
+			alert(AA[i].seq.length);
+			InfoField.value += "\n"+ "  not all sequences of same length";
+			return false;
+		}
+	}
+	//alert("hi");
+	resultalign = true;
+	return true;
+}
+
+/*
+Parameters: none
+Returns:
+	This is the main worker function. It first reads the input fields and then produces the html output.
+*/
+function MakeHtml(){
+	let OutputField = document.getElementById('textOutput');
+	let InfoField = document.getElementById('textInfo');
+	//InfoField.value = "working ...";
+	//OutputField.value = '';
+	//spinnerOnOff(true);
+	OutputString = '';
+    ReadAlignment(InfoField);
+	if (!resultalign){
+		spinnerOnOff(false);
+		return;
+	}
+	resultalign=false;
+	
+	let Rules = [];
+	let rules = document.getElementById('textRules').value;
+	if (rules.length>0){
+		const RuleLines = rules.split('\n');
+		for (let line=0; line<RuleLines.length; line++){
+			if (RuleLines[line].length>0){ // ignore empty lines
+				let result = ParseRule(RuleLines[line], AA);
+				if (!result){
+					InfoField.value += "\n"+ "  error parsing rule line " + line;
+					spinnerOnOff(false);
+					return;
+				}
+				Rules.push(result);
+				if (false){
+					OutputField.value += "\n"+result.RuleType +"\n"+ 
+				"RuleDefinesColor:" + result.RuleDefinesColor  +"\n"+ 
+				"RuleDefinesBold:"+result.RuleDefinesBold +"\n"+ 
+				"RuleDefinesMouseOver:"+result.RuleDefinesMouseOver +"\n"+ 
+				"RuleDefinesFontColor:"+result.RuleDefinesFontColor +"\n"+ 
+				"NumberOfCharBoxWritten:"+result.NumberOfCharBoxWritten +"\n"+ 
+				"ReferenceSequence:"+ result.ReferenceSequence +"\n"+ 
+				"FromResidue:"+result.FromResidue + "\n"+ 
+				"ToResidue:"+result.ToResidue +"\n"+ 
+				"TextToShowMouseOver:"+result.TextToShowMouseOver +"\n"+ 
+				"ColorText:"+result.ColorText+"\n"+ 
+				"FontColorText:"+result.FontColorText +"\n"+ 
+				"BoxText:"+result.BoxText +"\n";
+				""
+				}
+			}
+		}
+	}
+
+	let PDBs = [];
+	let pdbs = document.getElementById('textPDB').value;
+	if (pdbs.length>0){
+		const PdbLines = pdbs.split('\n');
+	
+		let l=0;
+		while (true){
+			let result = ReadPdb(l, PdbLines, AA);
+			if (!result){
+				break;
+			}
+			PDBs.push({Index: result.SequenceIndex, PDB: result.PDB});
+			//OutputField.value += "\n"+ "index:"+result.SequenceIndex + " " +result.Name + "\n" + MakeStringOfArrayOfLines(result.PDB);
+
+			if (result.newindex<0){
+				break;
+			}
+			l = result.newindex;
+		}
+	}
+	
+	let FontSize = parseFloat(document.getElementById('textFontSize').value);
+
+	Write3DMolHeader(FontSize);
+
+	wrlBF(" <body>");
+
+	let NSeq = AA.length;
+	InfoField.value="working ...";
+	
+/*	let NSeqText = '<span id=\"NSEQ\">';
+	{
+		NSeqText += NSeq.toString(); //CString(s);
+	}
+	NSeqText += '<\/span>&nbsp&nbsp <span id=\"TextModel\"> Text<\/span>';
+	wrlBF(NSeqText);
+*/						
+	wrlBF('<div class=\"row\">');
+	wrlBF('<div class=\"column\" > ');
+	
+	let NCharPerRow = parseInt(document.getElementById('textResiduesPerLine').value);
+
+	WriteHtmlAlignTable(NCharPerRow, AA, Rules);
+
+	wrlBF(" <\/div>")
+	wrlBF(" <style>")
+	wrlBF(".mol-container {")
+	wrlBF("  top: 30px;")
+	wrlBF("  width: 50%;")
+	wrlBF("  height: 50%;")
+	wrlBF("  position: fixed;")
+	
+	wrlBF("}")
+    wrlBF("#myZoom{")
+    wrlBF("position: fixed;")
+    wrlBF("top: 4px;}")	
+	
+	wrlBF(".box {")
+    let sfont = FontSize.toString();
+    wrlBF(" fontsize: " +sfont+"vw;");
+    wrlBF ("line-height: 1.4;")
+	wrlBF("  width:relative;")
+	wrlBF("  top: 58%;")
+	wrlBF("  position: fixed;")
+	wrlBF("  padding-left: 10px;")
+
+	wrlBF("  padding-right: 10px;")
+	//wrlBF("  border: 3px solid;")
+	wrlBF("  background-color: gray;")
+	wrlBF("}")
+	wrlBF("<\/style>")
+	wrlBF("<div class=\"column\"> ")
+	wrlBF(" <div class=\"left-half\">")
+	wrlBF(" <div id =\"myZoom\">");
+	
+	let NSeqText = '<span id=\"NSEQ\">';
+	{
+		NSeqText += NSeq.toString(); //CString(s);
+	}
+	NSeqText += '<\/span>&nbsp&nbsp <span id=\"TextModel\"> Text<\/span>';
+	wrlBF(NSeqText);
+	
+	wrlBF(" <button type=\"button\" style=\"margin-left: 10px\" onclick=\"ZoomOut()\" id=\"buttonZoomOut\" class=\"btn btn-primary\">Zoom out<\/button>");
+//	wrlBF(" <button type=\"button\" id=\"buttonZoomOut\" class=\"btn btn-primary\">Zoom out<\/button>");
+	wrlBF(" <input type=\"checkbox\"style=\"margin-left: 10px\" id=\"showhetatoms\" name=\"showhetatoms\" checked \/>  <label for=\"showhetatoms\">Show Hetatoms<\/label>");
+
+	wrlBF(" </div>")
+	wrlBF("<div class=\"view3d\">")
+	wrlBF("<div id=\"container-0\" class=\"mol-container\"><\/div>")
+	wrlBF("<\/div> ")
+	let ShowLegend = false;
+	for (let i=0; i<Rules.length; i++){
+		if (Rules[i].RuleType == 2){
+			ShowLegend = true;
+
+		}
+	}
+
+	if (ShowLegend){
+		wrlBF("<div class='box' >") 
+			wrlBF  (" <p><b>LEGEND<\/b><\/p>")         
+			for (let i=0; i<Rules.length; i++){
+				let rule = Rules[i];		
+				if (rule.RuleType==2){
+                   
+					let InsertString=CreateLegendText(rule);
+					wrlBF  (InsertString +": " + EliminateQuotationMarks(rule.LegendText) + "<br>");
+				}			
+			}
+ 		   wrlBF("<\/div> ")
+	}
+	wrlBF("<\/div><\/div>")
+	wrlBF("<script>")
+	wrlBF("	function getPdb(i){")
+	wrlBF("		return PDBArray[i];");
+	wrlBF("	}")
+//	wrlBF("document.getElementById(\"buttonZoomOut\").addEventListener(\"click\", ZoomOut);")
+	wrlBF("<\/script>")
+
+	WriteListenerScript(AA);
+
+	wrlBF("<script>")
+	wrlBF("var PDBArray = [];");
+	wrlBF("var NameArray = [];");
+	
+	for (let i=0; i<AA.length; i++){
+		let pdbstring="";
+		for (let j=0; j<PDBs.length; j++){
+			if (PDBs[j].Index ==i){
+				pdbstring = MakeStringOfArrayOfLines(PDBs[j].PDB);
+			}
+		}
+		wrlBF('PDBArray.push(`' +  pdbstring + '`' + ');');
+		wrlBF('NameArray.push("' +  AA[i].name + '");');
+	}
+	wrlBF("<\/script>")
+	wrlBF("<\/body>")
+	wrlBF("<\/html>")
+	
+	OutputField.value = OutputString;
+	
+	InfoField.value="Finished! Now copy the text from the html field and save as html file.";
+	spinnerOnOff(false);
+}
+
+// Instruction functions
+function Alignment_instruction(){
+	document.getElementById('textInfo').value = "Insert the alignment in fasta style. Protein label names have to be identical during the entire procedure. An example is shown below:\n>Protein1\nMGTKL-----STP\nIFG\n>Protein2\nMGT--KHGFSTQ\nLWG"
+}
+
+function Rules_instruction(){
+	document.getElementById('textInfo').value = "For each residue of interest you have to write a rule string as in the following example: \n\nhCLC-7   767  bold  mouseover:'R767Q:ARO&#10 R767P: ADOII' fontcolor:white color:blue\n\nThe first tag 'hCLC-7'defines the respective sequence. The number defines the respective residue. The tag 'bold' defines text style. The text after 'mouseover:' defines a possibly multi-line string that is shown in a small box when hovering the mouse over the residue.'&#10' inserts a line break. \nThe last tags define fontcolor and background color. \nIt is important that no space is inserted after the : in  mouseover:'R767Q:ARO&#10 R767P: ADOII' and  fontcolor:white. \n\nIn order to highlight for example transmembrane domains, the following type of rule is used:\n\nALL hCLC-1  613 658 color:red bold fontcolor:white  CBS1 \n\nIn this example, the text 'CBS1' is repeatedly shown below the alignment in the stretch between residues 613 and 658, referring to the numbering of hCLC-1."
+}
+
+function PDB_Files_instruction(){
+	document.getElementById('textInfo').value = "You have to paste the content of all pdb files in 'fasta' format as shown in the (simplified) example below.\n>Protein1\nATOM      1  N   GLY A  88     167.223 169.450 150.170  1.00  0.68           N  \nATOM      2  CA  GLY A  88     168.268 170.520 150.352  1.00  0.68           C  \n>Protein2\nATOM      1  N   GLY A  88     167.223 169.450 150.170  1.00  0.68           N  \nATOM      2  CA  GLY A  88     168.268 170.520 150.352  1.00  0.68           C  \nATOM      3  C   GLY A  88     167.719 171.895 150.643  1.00  0.68           C  \nATOM      4  O   GLY A  88     167.350 172.167 151.776  1.00  0.68           O  \nATOM      5  N   GLU A  89     167.618 172.801 149.651  1.00  0.64           N  \n>Protein2\nATOM      1  N   GLY A  88     167.223 169.450 150.170  1.00  0.68           N  \nATOM      2  CA  GLY A  88     168.268 170.520 150.352  1.00  0.68           C  \nATOM      3  C   GLY A  88     167.719 171.895 150.643  1.00  0.68           C  \nATOM      4  O   GLY A  88     167.350 172.167 151.776  1.00  0.68           O   "
+}
+
+//Clear Functions
+function clearAlign(){
+	document.getElementById('textAlign').value ='';
+    document.getElementById('fileAlign').value='';
+}
+function clearRules(){
+	document.getElementById('textRules').value ='';
+    document.getElementById('fileRules').value='';
+}
+function clearPDB(){
+	document.getElementById('textPDB').value ='';
+    document.getElementById('filePDB').value ='';
+    
+}
+function clearHtml(){
+	document.getElementById('textOutput').value ='';
+    document.getElementById('fileRules').value='';
+}
+function clearInfo(){
+	document.getElementById('textInfo').value ='';
+}
+
+function ResetAll(){
+	clearAlign();
+	clearRules();
+	clearPDB();
+	clearHtml();
+	document.getElementById('textResiduesPerLine').value = 80;
+	document.getElementById('textFontSize').value = 0.78;
+	document.getElementById('textInfo').value = "Insert aligment, rules and pdb file, then click on the Work button. \nAt the end copy the html output section and save it as html file";
+    document.getElementById('fileAlign').value="";
+    document.getElementById('fileRules').value="";
+    document.getElementById('filePDB').value ="";
+
+}
+
+function copyHtml(){
+    let text = document.getElementById('textOutput').value;
+    navigator.clipboard.writeText(text);
+} 
+
+</script>
+</head>
+    
+    
+<body>
+<h2 style="margin-left: 40px; margin-right: 20px; margin-top:20px; color:blue; "><i><b>ALLIN</b> -<b>A</b>nnotation of sequence a<b>L</b>ignment and structura<b>L</b> prote<b>I</b>n visualizatio<b>N</b>- </i></h2> 
+   	
+<h4 style="margin-left: 40px; margin-right: 20px; margin-top:10px;">Tool for generation of annotated aligns with structural visualization. Please cite ....</h4><br>
+<table >
+	<tr>
+		<td>
+			<h5 style="margin-left: 40px" ><button type="button" id="buttonWork" class="btn btn-primary">Work</button></h5>
+		</td>
+		<td>&nbsp&nbsp</td>
+		<td><h5 ><button type="button" id="buttonReset" class="btn btn-primary">Reset all</button></h5></td>
+		<td>&nbsp&nbsp</td>
+		<td><h5 ><button type="button" id="buttonAlignment_instruction" class="btn btn-primary">Alignment instructions</button></h5></td>
+		<td>&nbsp&nbsp</td>
+		<td><h5><button type="button" id="buttonRules_instruction" class="btn btn-primary">Rules instructions</button></h5></td>
+		<td>&nbsp&nbsp</td>
+		<td><h5 style="margin-right: 20px"><button type="button" id="buttonPDB_Files_instructions" class="btn btn-primary">PDB files instructions</button></h5></td>
+	</tr>
+</table>
+
+<div class="font-monospace"
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-20">
+				<table>
+					<td> <h5 style="margin-left: 40px">Info</h5> </td><td>&nbsp&nbsp&nbsp <button type="button" id="buttonInfo" class="btn btn-primary">Clear </button>  
+						&nbsp&nbsp
+						<div class="spinner-border text-danger d-none" role="status" name="divSpinner" id="divSpinner"></div> 
+					</td>
+				</table>
+		
+		
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<textarea class="form-control" id="textInfo" rows="5"></textarea>
+					<label class="form-label" for="textInfo"> </label>
+				</div>
+<br>
+				<h5 style="margin-left: 40px">Fontsize (in viewport units, i.e. percentage of the viewport size)</h5> 
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<input type="text" id="textFontSize" class="form-control" />
+					<label class="form-label" for="textFontSize"> </label>
+				</div>
+
+				<h5 style="margin-left: 40px"> Residues per line</h5> 
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<input type="text" id="textResiduesPerLine" class="form-control" />
+					<label class="form-label" for="textResiduesPerLine"> </label>
+				</div>	
+				<table>
+					<td> <h5 style="margin-left: 40px">
+						Alignment</h5></td><td>&nbsp&nbsp
+						<button type="button" id="buttonClearAlign" class="btn btn-primary">Clear </button> &nbsp&nbsp 	Upload: 
+						<input type="file" id="fileAlign" name="fileAlign" class="btn btn-primary">
+					</td>	
+				</table>
+
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<textarea class="form-control" id="textAlign" rows="5"></textarea>
+					<label class="form-label" for="textAlign"> </label>
+				</div>
+<br>
+				<table>
+					<td>
+						<h5 style="margin-left: 40px">Rules</h5></td><td>&nbsp&nbsp <button type="button" id="buttonClearRules" class="btn btn-primary">Clear</button>	&nbsp&nbsp	Upload: 
+						<input type="file" id="fileRules" name="fileRules" class="btn btn-primary"> 
+					</td>
+				</table>  
+
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<textarea class="form-control" id="textRules" rows="5"></textarea>
+					<label class="form-label" for="textRules"> </label>
+				</div>
+<br>
+				<h5 style="margin-left: 40px">PDB files &nbsp&nbsp	<button type="button" id="buttonClearPDB" class="btn btn-primary">Clear</button>
+					&nbsp&nbsp
+					<input type="radio" name="pdbuploadtype" value="SingleFile" checked = "true">&nbsp Load a single file with all pdbs &nbsp&nbsp
+					<input type="radio" name="pdbuploadtype" value="LoadSeparatePdbs" >&nbsp Load separate pdb files &nbsp&nbsp
+				</h5>
+<br>
+				<div id="SinglePdb">
+					<h5 style="margin-left: 40px">		Upload "fasta"-like file: 
+					<input type="file" id="filePDB" name="filePDB" class="btn btn-primary">
+				</div>
+				<div id="MultiplePdbs"></div>
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<textarea class="form-control" id="textPDB" rows="5"></textarea>
+					<label class="form-label" for="textPDB"> </label>
+				</div>
+<br>
+				<table>
+					<td><h5 style="margin-left: 40px"> Html output</h5></td><td>&nbsp&nbsp&nbsp	<button type="button" id="buttonClearHtmlPDB" class="btn btn-primary">Clear</button> 
+						<button type="button" id="buttonCopyHtml" class="btn btn-primary">Copy to clipboard</button>	 
+						<input type="button" value="Save on file" id="buttonSaveHtml" class="btn btn-primary">
+					</td>
+				</table>
+				<div class="form-outline" style="margin-left: 40px; margin-right: 20px; margin-top:20px">
+					<textarea class="form-control" id="textOutput" rows="10"></textarea>
+					<label class="form-label" for="textOutput"> </label>
+				</div>
+			</div>
+<br>
+		</div>
+	</div>
+
+<script>
+
+ResetAll();
+
+document.getElementById("buttonWork").addEventListener("click", WaitWork);
+document.getElementById("buttonReset").addEventListener("click", ResetAll);
+document.getElementById("buttonAlignment_instruction").addEventListener("click", Alignment_instruction);
+document.getElementById("buttonRules_instruction").addEventListener("click", Rules_instruction);
+document.getElementById("buttonPDB_Files_instructions").addEventListener("click", PDB_Files_instruction);
+document.getElementById("buttonInfo").addEventListener("click", clearInfo);
+document.getElementById("buttonClearAlign").addEventListener("click", clearAlign);
+document.getElementById("buttonClearRules").addEventListener("click", clearRules);
+document.getElementById("buttonClearPDB").addEventListener("click", clearPDB);
+document.getElementById("buttonClearHtmlPDB").addEventListener("click", clearHtml);
+document.getElementById("buttonCopyHtml").addEventListener("click", copyHtml);
+
+function saveHtml(){
+//	let file =new Blob([" test "], {type: "text"});
+	let file = new Blob([document.getElementById("textOutput").value], {type: "text"});
+	let anchor = document.createElement("a");
+	anchor.href = URL.createObjectURL(file);
+	anchor.download="Align.html";
+	anchor.click();
+}
+document.getElementById("buttonSaveHtml").addEventListener("click", saveHtml);
+
+function UploadFile(event) {
+	let ID="";
+	if (CompareNoCase(event.target.id, "fileAlign")){
+		ID = "textAlign";
+	}
+	if (CompareNoCase(event.target.id, "fileRules")){
+		ID = "textRules";
+	}
+	if (CompareNoCase(event.target.id, "filePDB")){
+		ID = "textPDB";
+	}
+	if (ID.length>0){
+		document.getElementById(ID).value = "Working ...";
+	}
+    let file = event.target.files[0];
+    let reader = new FileReader();
+	reader.onload = function(){
+		let filetext = reader.result;
+		if (ID.length>0){
+			document.getElementById(ID).value = filetext;
+		}
+	};
+	reader.readAsText(file);
+}
+
+document.getElementById('fileAlign').addEventListener('change', UploadFile);
+document.getElementById('fileRules').addEventListener('change', UploadFile);
+document.getElementById('filePDB').addEventListener('change', UploadFile);
+
+let PdbSelectButtons = document.querySelectorAll("input[name='pdbuploadtype']");
+
+for (let i=0; i<2; i++){
+	PdbSelectButtons[i].addEventListener("click", CheckPdbButton);
+}
+
+function CheckSinglePdbUpload(event){
+	let ID = event.target.id;
+	let index = parseInt(ID.substr(ID.length-1, 1));
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+	reader.onload = function(){
+		let filetext = reader.result;
+		let TextToAdd = ">" + AA[index].name+ "\n" + filetext;
+		let pdbField = document.getElementById('textPDB');
+		let OldText = pdbField.value;
+		pdbField.value = TextToAdd + OldText;
+	};
+
+	reader.readAsText(file);
+}
+
+function CheckPdbButton(event){
+	if (CompareNoCase(event.target.value, "SingleFile")){
+		document.getElementById('SinglePdb').style.display = "block";
+		document.getElementById('MultiplePdbs').style.display = "none";
+	}
+	if (CompareNoCase(event.target.value, "LoadSeparatePdbs")){
+		let InfoField = document.getElementById('textInfo');
+	    ReadAlignment(InfoField);
+		if (!resultalign){
+			alert("The alignment could not be read succesfully.\nThe alignment is necessary to inform the program about the names of the proteins. \nSee the info-field for the details on the error.");
+			PdbSelectButtons[0].checked = true;
+			PdbSelectButtons[1].checked = false;
+			return;
+		}
+		resultalign = false;
+
+		document.getElementById('SinglePdb').style.display = "none";
+		let mult = document.getElementById('MultiplePdbs');
+
+		let innerhtml ="<h5 style='margin-left: 40px'><table>";
+		
+		for (let i=0; i<AA.length; i++){
+			let ID = "filePDB"+i;
+			innerhtml += " <tr><td>" + AA[i].name + ":<\/td><td> <input type='file' id='" + ID + "' class='btn btn-primary'> <\/td><\/tr>";
+		}
+		innerhtml +="</table></h5>";
+		mult.innerHTML = innerhtml;
+
+		mult.style.display = "block";
+
+		for (let i=0; i<AA.length; i++){
+		    let ID = "filePDB"+i;
+			document.getElementById(ID).addEventListener('change', CheckSinglePdbUpload);
+		}
+	}
+}
+
+</script>
+
+<footer>
+	<p style="margin-left: 40px; margin-bottom: 20px; font-size: 12px;">Contact info: Dr. Michael Pusch, Institute of Biophysics, IBF-CNR, Genova, Italy. email: <a href="mailto:Michael.Pusch@ibf.cnr.it">michael.pusch@ibf.cnr.it</a></p>	
+</footer>
+</body>
+
+</html>
