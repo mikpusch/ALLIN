@@ -1,0 +1,543 @@
+ALL hCLC-1  116 152 color:red bold fontcolor:white  B 
+ALL hCLC-1  156 181 color:red bold fontcolor:white  C
+ALL hCLC-1  190 198 color:red bold fontcolor:white  D
+ALL hCLC-1  208 224 color:red bold fontcolor:white  E
+ALL hCLC-1  231 247 color:red bold fontcolor:white  F
+ALL hCLC-1  263 278 color:red bold fontcolor:white  G
+ALL hCLC-1  281 291 color:red bold fontcolor:white  H
+ALL hCLC-1  298 324 color:red bold fontcolor:white  I
+ALL hCLC-1  345 377 color:red bold fontcolor:white  J
+ALL hCLC-1  391 405 color:red bold fontcolor:white  K
+ALL hCLC-1  419 428 color:red bold fontcolor:white  L
+ALL hCLC-1  455 475 color:red bold fontcolor:white  M
+ALL hCLC-1  483 504 color:red bold fontcolor:white  N
+ALL hCLC-1  520 536 color:red bold fontcolor:white  O
+ALL hCLC-1  539 549 color:red bold fontcolor:white  P
+ALL hCLC-1  554 572 color:red bold fontcolor:white  Q
+ALL hCLC-1  576 584 color:red bold fontcolor:white  R
+ALL hCLC-1  613 658 color:red bold fontcolor:white  CBS1
+ALL hCLC-1  824 872 color:red bold fontcolor:white  CBS2
+tmCLC-0   70   bold  mouseover:"D70G:&#10 D70E: inwardly rectifying"
+tmCLC-0   122  bold  mouseover:"G122 " color:gray
+tmCLC-0   123  bold  mouseover:"S123T: altered selectivity, reduced single channel conductance" color:blue fontcolor:white  
+tmCLC-0   124  bold  mouseover:"G124 " color:gray  
+tmCLC-0   125  bold  mouseover:"I125" color:gray  
+tmCLC-0   126  bold  mouseover:"P126" color:gray  
+tmCLC-0   127  bold  mouseover:"E127Q:"color:gray   
+tmCLC-0   149  bold  mouseover:"K149L&#10 K149R&#10 K149A: effects on selectivity" 
+tmCLC-0   164  bold  mouseover:"G165 " color:gray  
+tmCLC-0   165  bold  mouseover:"K165R: inwardly rectifying, affects common gate" color:blue fontcolor:white  
+tmCLC-0   166  bold  mouseover:"E166A:eliminates gating&#10 E166D: reduces Popen" color:blue fontcolor:white  
+tmCLC-0   167  bold  mouseover:"G167" color:gray  
+tmCLC-0   168 bold   mouseover:"P168" color:gray  
+tmCLC-0   212  bold  mouseover:"C212S: eliminates common gate" color:blue fontcolor:white 
+tmCLC-0   213  bold  mouseover:"C213G: reduces common gate" color:blue fontcolor:white 
+tmCLC-0   352  bold  mouseover:"G352E: " 
+tmCLC-0   401  bold  mouseover:"H401E: " 
+tmCLC-0   416  bold  mouseover:"G416" color:gray   
+tmCLC-0   417  bold  mouseover:"A417" color:gray  
+tmCLC-0   418  bold  mouseover:"F418" color:gray  
+tmCLC-0   419  bold  mouseover:"V419" color:gray  
+tmCLC-0   420  bold  mouseover:"P420" color:gray  
+tmCLC-0   480  bold  mouseover:"C480S: " 
+tmCLC-0   482  bold  mouseover:"E482D: " 
+tmCLC-0   512  bold  mouseover:"Y512" color:gray  
+tmCLC-0   513  bold  mouseover:"D513S: " 
+tmCLC-0   515  bold  mouseover:"I515K: " 
+tmCLC-0   519  bold  mouseover:"K519Q: &#10 K519E:&#10 K519H:&#10 K519R:&#10 K519C  " 
+tmCLC-0   522  bold  mouseover:"P522G: fast slow gate" color:blue fontcolor:white 
+tmCLC-0   524  bold  mouseover:"L524I" 
+tmCLC-0   783  bold  mouseover:"A783P: shift of slow gate" color:blue fontcolor:white 
+hCLC-1   29  bold  mouseover:"P29H: " fontcolor:yellow color:green
+hCLC-1   43   bold  mouseover:"Q43R: recessive myotonia;" color:orange
+hCLC-1   47   bold  mouseover:"R47W: heterozygous with A298T:&#10dominant myotonia; &#10reduced chloride current density and&#10 altered channel gating. " color:yellow  
+hCLC-1   70   bold  mouseover:"S70L: recessive myotonia;" fontcolor:yellow color:green
+hCLC-1   82   bold  mouseover:"T82A: recessive myotonia;" fontcolor:yellow color:green
+hCLC-1   105  bold  mouseover:"R105C: recessive myotonia; recessive but no functional defect detected" fontcolor:yellow color:green
+hCLC-1   106  bold  mouseover:"L106V:recessive myotonia; " fontcolor:yellow color:green
+hCLC-1   128  bold  mouseover:"M128I: recessive myotonia &#10inwardly rectifying with fast kinetics" color:blue fontcolor:white
+hCLC-1   132  bold  mouseover:"S132C: dominant myotonia &#10inwardly rectifying, highly sensitive to [Cl]int" color:blue fontcolor:white
+hCLC-1   136  bold  mouseover:"D136G: recessive myotonia &#10inwardly rectifying, sensitive to [Cl]int" color:blue fontcolor:white
+hCLC-1   137  bold  mouseover:"Y137D: recessive myotonia;" color:orange
+hCLC-1   138  bold  mouseover:"V138I: recessive myotonia and dominant;" fontcolor:blue color:pink
+hCLC-1   145  bold  mouseover:"A145S: recessive myotonia and dominant;" fontcolor:blue color:pink
+hCLC-1   150  bold  mouseover:"Y150C: recessive myotonia; recessive but no functional defect detected" fontcolor:yellow color:green
+hCLC-1   151  bold  mouseover:"A151T: recessive myotonia" fontcolor:blue color:pink
+hCLC-1   154  bold  mouseover:"Q154R: " fontcolor:yellow color:green
+hCLC-1   160  bold  mouseover:"Q160H: recessive myotonia and dominant;" color:orange
+hCLC-1   161  bold  mouseover:"F161V: recessive myotonia" fontcolor:blue color:white
+hCLC-1   164  bold  mouseover:"W164R: " fontcolor:black color:yellow
+hCLC-1   165  bold  mouseover:"V165G: recessive myotonia; slight shift of pOpen" color:yellow
+hCLC-1   167  bold  mouseover:"F167L: recessive myotonia; recessive but no functional defect detected" fontcolor:yellow color:green
+hCLC-1   172  bold  mouseover:"I172F: Unknown" fontcolor:blue color:pink
+hCLC-1   179  bold  mouseover:"C179Y: " fontcolor:black color:yellow
+hCLC-1   182  bold  mouseover:"I182V: Unknown" fontcolor:blue color:pink
+hCLC-1   183  bold  mouseover:"S183P: " color:red
+hCLC-1   188  bold  mouseover:"G188" color:gray  
+hCLC-1   189  bold  mouseover:"S189C dominant myotonia; shift of V-dependence" color:yellow  
+hCLC-1   190  bold  mouseover:"G190S: myotonia"  color:yellow
+hCLC-1   191  bold  mouseover:"I191" color:gray  
+hCLC-1   192  bold  mouseover:"P192" color:gray  
+hCLC-1   193  bold  mouseover:"E193" color:gray  
+hCLC-1   197  bold  mouseover:"I197R:recessive myotonia" color:lightgray
+hCLC-1   198  bold  mouseover:"L198P:recessive myotonia" color:orange
+hCLC-1   200  bold  mouseover:"G200R: dominant myotonia; shift of V-dependence" color:yellow
+hCLC-1   218  bold  mouseover:"A218T: dominant myotonia"  fontcolor:blue color:pnk
+hCLC-1   221  bold  mouseover:"A221E: " fontcolor:black color:orange
+hCLC-1   222  bold  mouseover:"G222S: " fontcolor:black color:green
+hCLC-1   230  bold  mouseover:"G230E: recessive myotonia, altered ion selectivity" color:orange  
+hCLC-1   231  bold  mouseover:"K231A: experimental mutation, inwardly rectifying" color:blue fontcolor:white  
+hCLC-1   232  bold  mouseover:"E232" color:gray  
+hCLC-1   233  bold  mouseover:"G233S: loss of funtion &#10G233V: residual current; " color:red   
+hCLC-1   234  bold  mouseover:"P234" color:gray  
+hCLC-1   236  bold  mouseover:"V236L: recessive myotonia; recessive shift of pO"  color:orange
+hCLC-1   250  bold  mouseover:"M250I: recessive myotonia and dominant ;" fontcolor:blue color:pink
+hCLC-1   254  bold  mouseover:"C254W: recessive myotonia and dominant ;" fontcolor:blue color:pink
+hCLC-1   255  bold  mouseover:"G255R: recessive myotonia and dominant ;" fontcolor:blue color:pink
+hCLC-1   260  bold  mouseover:"P260L: recessive myotonia and dominant ;" fontcolor:blue color:pink
+hCLC-1   261  bold  mouseover:"Y261C: recessive myotonia; recessive but no functional defect detected" color:green fontcolor:yellow
+hCLC-1   268  bold  mouseover:"T268M: recessive myotonia" color:yellow
+hCLC-1   270  bold  mouseover:"G270V: recessive myotonia" color:yellow
+hCLC-1   271  bold  mouseover:"C271R: recessive myotonia and dominant;" fontcolor:blue color:pink
+hCLC-1   272  bold  mouseover:"A272V: recessive myotonia and dominant;" fontcolor:blue color:pink
+hCLC-1   273  bold  mouseover:"V273M: recessive myotonia and dominant " fontcolor:blue color:yellow
+hCLC-1   276  bold  mouseover:"G276S like WT &#10G276D: Unknown effect." fontcolor:yellow color:green
+hCLC-1   277  bold  mouseover:"C277S: reduces slow gating&#10C277R and C277Y: myotonia, altered gating" color:blue fontcolor:white
+hCLC-1   280  bold  mouseover:"G280R: recessive myotonia and dominant;" fontcolor:blue color:pink
+hCLC-1   282  bold  mouseover:"P282A: recessive myotonia and dominant," fontcolor:blue color:pink
+hCLC-1   283  bold  mouseover:"L283F: recessive myotonia and dominant " fontcolor:blue color:yellow
+hCLC-1   284  bold  mouseover:"G284R: recessive myotonia G285V: recessive myotonia" fontcolor:black color:red
+hCLC-1   285  bold  mouseover:"G285E: recessive myotonia" color:red
+hCLC-1   286  bold  mouseover:"V286A: dominant myotonia" color:yellow  
+hCLC-1   289  bold  mouseover:"S289G: Mutagenesis. S289I and S289N" fontcolor:black color:yellow
+hCLC-1   290  bold  mouseover:"I290M: dominant myotonia" color:yellow  
+hCLC-1   291  bold  mouseover:"E291K: recessive myotonia" color:red  
+hCLC-1   297  bold  mouseover:"F297S: " fontcolor:black color:yellow 
+hCLC-1   298  bold  mouseover:"A298T: heterozygous with R47W:&#10dominant myotonia; &#10reduced chloride current density and&#10 altered channel gating. " color:yellow
+hCLC-1   299  bold  mouseover:"V299L: not provided" fontcolor:black color:yellow
+hCLC-1   300  bold  mouseover:"R300Q: recessive myotonia" fontcolor:yellow color:green 
+hCLC-1   302  bold  mouseover:"Y302H: not provided" fontcolor:black color:orange
+hCLC-1   303  bold  mouseover:"W303R: " fontcolor:black color:yellow
+hCLC-1   306  bold  mouseover:"F306S: Myotonia, concomitant mutations also in SCN4A" fontcolor:white color:blue 
+hCLC-1   307  bold  mouseover:"F307S: dominant myotonia" color:orange
+hCLC-1   310  bold  mouseover:"T310M: dominant myotonia" color:yellow
+hCLC-1   313  bold  mouseover:"A313T: dominant myotonia" color:yellow
+hCLC-1   317  bold  mouseover:"R317Q: dominant myotonia" color:yellow  
+hCLC-1   335  bold  mouseover:"T335N: myotonia, mildly dominant, inwardly rectifying" color:orange
+hCLC-1   327  bold  mouseover:"V327I: recessive myotonia" color:red
+hCLC-1   329  bold  mouseover:"I329T: recessive myotonia" color:yellow
+hCLC-1   338  bold  mouseover:"R338Q: dominant and recessive myotonia" color:yellow
+hCLC-1   355  bold  mouseover:"G355R: recessive myotonia" color:red
+hCLC-1   411  bold  mouseover:"G411C: Becker's disease" color: red
+hCLC-1   412  bold  mouseover:"Q412P: recessive myotonia" color:red
+hCLC-1   413  bold  mouseover:"F413C: recessive myotonia; recessive little functional defect" fontcolor:blue color:lightgray
+hCLC-1   415  bold  mouseover:"A415V: recessive myotonia" fontcolor:blue color:lightgray
+hCLC-1   417  bold  mouseover:"E417G:&#10E417Q " color:green fontcolor:yellow  
+hCLC-1   428  bold  mouseover:"F428S: recessive myotonia" color:orange 
+hCLC-1   453  bold  mouseover:"R453W: recessive myotonia" color:green  fontcolor:yellow
+hCLC-1   480  bold  mouseover:"P480L: dominant myotonia (Thomson's own mutation)&#10no expression by itself but dominant shift of V-dependence in heteromers&#10P480S Thomson,reduced conductance" color:yellow
+hCLC-1   482  bold  mouseover:"G482R: recessive myotonia" color:red   
+hCLC-1   483  bold  mouseover:"G483" color:gray  
+hCLC-1   484  bold  mouseover:"F484L: dominant myotonia" color:orange 
+hCLC-1   485  bold  mouseover:"M485V: recessive myotonia" color:red  
+hCLC-1   486  bold  mouseover:"P486" color:gray  
+hCLC-1   493  bold  mouseover:"A493E: dominant myotonia " color:red
+hCLC-1   496  bold  mouseover:"R496S: recessive myotonia" color:red
+hCLC-1   499  bold  mouseover:"G499R: recessive myotonia&#10 reduced chloride transport;&#10 changed calcium channel activity;&#10 changed channel gating." color:blue fontcolor:white 
+hCLC-1   527  bold  mouseover:"I527T: recessive myotonia" color:lightgray
+hCLC-1   531  bold  mouseover:"A531V: recessive myotonia " color:orange  
+hCLC-1   533  bold  mouseover:"T533I: recessive myotonia" color:lightgray
+hCLC-1   536  bold  mouseover:"V536L: recessive myotonia" color:lightgray
+hCLC-1   550  bold  mouseover:"T550M: recessive, inwardly rectifying" color:blue fontcolor:white
+hCLC-1   552  bold  mouseover:"Q552R: dominant and recessive myotonia" color:yellow
+hCLC-1   556  bold  mouseover:"I556N: dominant and recessive myotonia" color:yellow
+hCLC-1   563  bold  mouseover:"V563I: recessive myotonia " color:lightgray
+hCLC-1   578  bold  mouseover:"Y578" color:gray  
+hCLC-1   628  bold  mouseover:"L628P: recessive myotonia" color:lightgray
+hCLC-1   629  bold  mouseover:"I629P: recessive myotonia" fontcolor:blue color:lightgray
+hCLC-1   640  bold  mouseover:"V640G: recessive myotonia;&#10 reduced calcium channel activity" color:lightgray
+hCLC-1   708  bold  mouseover:"F708L: recessive myotonia" color:lightgray
+hCLC-1   829  bold  mouseover:"V829M: " color:green fontcolor:yellow  
+hCLC-1   832  bold  mouseover:"T832I: " color:red   
+hCLC-1   845  bold  mouseover:"G845S: recessive myotonia" fontcolor:yellow color:green 
+hCLC-1   855  bold  mouseover:"G855E: recessive myotonia" color:lightgray
+hCLC-1   883  bold  mouseover:"P883T: " color:orange  
+hCLC-1   885  bold  mouseover:"A885P: " color:orange
+hCLC-1   894  bold  mouseover:"R894x: recessive myotonia" fontcolor:blue color:lightgray
+hCLC-1   932  bold  mouseover:"P932L: dominant and recessive myotonia" fontcolor:blue color:lightgray
+hCLC-1   947  bold  mouseover:"V947E: " color:red   
+hCLC-1   950  bold  mouseover:"E950K: dominant myotonia  " color:red   
+hCLC-2   161  bold  mouseover:"G161" color:gray  
+hCLC-2   162  bold  mouseover:"S162" color:gray  
+hCLC-2   163  bold  mouseover:"G163" color:gray  
+hCLC-2   164  bold  mouseover:"I164" color:gray  
+hCLC-2   165  bold  mouseover:"P165" color:gray  
+hCLC-2   166  bold  mouseover:"E166"color:gray  
+hCLC-2   203  bold  mouseover:"G203" color:gray   
+hCLC-2   204  bold  mouseover:"K204" color:gray  
+hCLC-2   205  bold  mouseover:"E205" color:gray  
+hCLC-2   206  bold  mouseover:"G206" color:gray   
+hCLC-2   207  bold  mouseover:"P207" color:gray  
+hCLC-2   457  bold  mouseover:"G457" color:gray   
+hCLC-2   458  bold  mouseover:"A458" color:gray  
+hCLC-2   459  bold  mouseover:"F459" color:gray  
+hCLC-2   460  bold  mouseover:"M460" color:gray  
+hCLC-2   461  bold  mouseover:"P461" color:gray  
+hCLC-2   553  bold  mouseover:"Y553" color:gray 
+hCLC-3   238  bold  mouseover:"G238" color:gray 
+hCLC-3   239  bold  mouseover:"S239" color:gray  
+hCLC-3   240  bold  mouseover:"G240" color:gray  
+hCLC-3   241  bold  mouseover:"I241" color:gray  
+hCLC-3   242  bold  mouseover:"P242" color:gray  
+hCLC-3   243  bold  mouseover:"E243" color:gray  
+hCLC-3   280  bold  mouseover:"G280 "color:gray   
+hCLC-3   281  bold  mouseover:"K281" color:gray  
+hCLC-3   282  bold  mouseover:"E282" color:gray  
+hCLC-3   283  bold  mouseover:"G283" color:gray   
+hCLC-3   284  bold  mouseover:"P284" color:gray   
+hCLC-3   413  bold  mouseover:"A413V: Duncan et al 2021 - like WT" color:green fontcolor:yellow
+hCLC-3   525  bold  mouseover:"G525" color:gray   
+hCLC-3   526  bold  mouseover:"L526" color:gray  
+hCLC-3   527  bold  mouseover:"F527" color:gray  
+hCLC-3   528  bold  mouseover:"I528" color:gray  
+hCLC-3   529  bold  mouseover:"P529" color:gray 
+hCLC-3   570  bold  mouseover:"T570I: Duncan et al 2021 - Slightly increased inward current at pH 5.3, GOF" color:aqua
+hCLC-3   607  bold  mouseover:"I607T: Duncan et al 2021 - Increased inward current at pH 5.3, GOF" color:aqua
+hCLC-3   630  bold  mouseover:"Y630" color:gray  
+hCLC-3   772  bold  mouseover:"V772A: Duncan et al 2021 - like WT" color:green fontcolor:yellow
+hCLC-4   15   bold  mouseover:"D15N: Palmer 2016" color:green fontcolor:yellow
+hCLC-4   29   bold  mouseover:"D29E: Palmer 2023, could affect sorting motif" color:green fontcolor:yellow
+hCLC-4   34   bold  mouseover:"D34N: Palmer 2023" color:red  
+hCLC-4   41   bold  mouseover:"R41W: He 2024" color:orange 
+hCLC-4   62   bold  mouseover:"K62R: Palmer 2023" color:orange 
+hCLC-4   69   bold  mouseover:"S69L: Palmer 2023" color:red
+hCLC-4   78   bold  mouseover:"G78S: Palmer 2023: shift; Hu 2016: reduced"  color:yellow 
+hCLC-4   89   bold  mouseover:"D89N: Palmer 2023 - Increased inward current at pH 5.3, GOF" color:aqua  
+hCLC-4   92   bold  mouseover:"V92M: Palmer 2023" color:red 
+hCLC-4   105  bold  mouseover:"S105C: Palmer 2023" color:green fontcolor:yellow  
+hCLC-4   180  bold  mouseover:"G181" color:gray  
+hCLC-4   181  bold  mouseover:"S182" color:gray  
+hCLC-4   182  bold  mouseover:"G183S" color:gray  
+hCLC-4   183  bold  mouseover:"I184" color:gray  
+hCLC-4   184  bold  mouseover:"P185" color:gray  
+hCLC-4   185  bold  mouseover:"E186" color:gray  
+hCLC-4   203  bold  mouseover:"T203I: Palmer 2023" color:red
+hCLC-4   212  bold  mouseover:"V212G: Palmer 2023: LOF; Palmer 2016: residual function" color:red 
+hCLC-4   221  bold  mouseover:"L221V: Hu 2016&#10L221P: Palmer 2016" color:red  
+hCLC-4   222  bold  mouseover:"G222S: " color:gray   
+hCLC-4   223  bold  mouseover:"K223" color:gray  
+hCLC-4   224  bold  mouseover:"E224" color:gray  
+hCLC-4   225  bold  mouseover:"G225" color:gray   
+hCLC-4   226  bold  mouseover:"P226L: Palmer 2023" color:red   
+hCLC-4   268  bold  mouseover:"F268L: Increased inward current at pH 5.3, GOF" color:aqua     
+hCLC-4   269  bold  mouseover:"G269D: Palmer 2023" color:yellow 
+hCLC-4   272  bold  mouseover:"I272V: Palmer 2023; small currents AND strong shift" color:yellow 
+hCLC-4   275  bold  mouseover:"V275M: Palmer 2023; shift; Palmer 2016: reduced" color:yellow  
+hCLC-4   276  bold  mouseover:"L276F: Palmer 2023, strong shift" color:yellow  
+hCLC-4   278  bold  mouseover:"S278R: Palmer 2023" color:red 
+hCLC-4   279  bold  mouseover:"L279V: Palmer 2023" color:red 
+hCLC-4   280  bold  mouseover:"E280N: Palmer 2023" color:red 
+hCLC-4   309  bold  mouseover:"N309S: Palmer 2023" color:orange 
+hCLC-4   310  bold  mouseover:"P310S: Palmer 2023, increased inward current at pH 5.3, GOF" color:aqua 
+hCLC-4   315  bold  mouseover:"R315H: Palmer 2023" color:green fontcolor:yellow
+hCLC-4   317  bold  mouseover:"V317I: Palmer 2023, reduced current at positive voltages, increased inward current at pH 5.3, GOF&#10V317F Increased inward current at pH 5.3, GOF" color:aqua
+hCLC-4   319  bold  mouseover:"F319S: Palmer 2023, strong shift" color:yellow 
+hCLC-4   342  bold  mouseover:"G342E: Palmer 2023" color:red 
+hCLC-4   360  bold  mouseover:"R360S: Palmer 2023" color:red 
+hCLC-4   364  bold  mouseover:"R364G: Palmer 2023" color:green fontcolor:yellow
+hCLC-4   369  bold  mouseover:"P369L: Palmer 2023" color:red 
+hCLC-4   374  bold  mouseover:"I374T: Palmer 2023" color:orange  
+hCLC-4   395  bold  mouseover:"S395R: Slightly increased inward current at pH 5.3, GOF" color:aqua    
+hCLC-4   432  bold  mouseover:"R432Q: Palmer 2023" color:green fontcolor:yellow 
+hCLC-4   468  bold  mouseover:"L468" color:gray  
+hCLC-4   469  bold  mouseover:"F469" color:gray  
+hCLC-4   470  bold  mouseover:"I470" color:gray  
+hCLC-4   471  bold  mouseover:"P471" color:gray  
+hCLC-4   480  bold  mouseover:"G480R" He 2024" color:red
+hCLC-4   484  bold  mouseover:"G484R: Palmer 2023" color:red
+hCLC-4   489  bold  mouseover:"Q489K: Palmer 2023, much reduced currents and small shift"  color:yellow  
+hCLC-4   526  bold  mouseover:"G526S: Palmer 2023, shifted" color:yellow 
+hCLC-4   533  bold  mouseover:"V533M: Palmer 2023, shifted " color:yellow 
+hCLC-4   534  bold  mouseover:"S534L: Palmer 2016" color:red 
+hCLC-4   536  bold  mouseover:"V536M: Hu 2016; this study: shift" color:yellow  
+hCLC-4   544  bold  mouseover:"G544R: Palmer 2023: strong shift; Veeramah 2013; Palmer 2016" color:yellow  
+hCLC-4   545  bold  mouseover:"G545S Small currents&#10G545D Strong Shift" color:yellow 
+hCLC-4   549  bold  mouseover:"I549N: Palmer 2023 - Increased inward current at pH 5.3, GOF" color:aqua
+hCLC-4   550  bold  mouseover:"V550L: Palmer 2023 - Increased inward current at pH 5.3, GOF" color:aqua 
+hCLC-4   555  bold  mouseover:"A555V: Palmer 2023 - Increased inward current at pH 5.3, strong GOF; " color:aqua    
+hCLC-4   560  bold  mouseover:"K560E: Palmer 2023, LOF " color:red 
+hCLC-4   572  bold  mouseover:"Y573" color:gray  
+hCLC-4   603  bold  mouseover:"R603W: He 2024" color:orange 
+hCLC-4   621  bold  mouseover:"D621G: Palmer 2023" color:green fontcolor:yellow  
+hCLC-4   629  bold  mouseover:"T629I: Palmer 2023" color:green fontcolor:yellow 
+hCLC-4   635  bold  mouseover:"P635R: Palmer 2023, LOF" color:red
+hCLC-4   636  bold  mouseover:"V635M: Palmer 2023, reduced currents" color:orange
+hCLC-4   646  bold  mouseover:"I646T: Palmer 2023" color:green fontcolor:yellow  
+hCLC-4   652  bold  mouseover:"R652T: Palmer 2023" color:green fontcolor:yellow  
+hCLC-4   655  bold  mouseover:"I655V: Palmer 2023" color:green fontcolor:yellow  
+hCLC-4   718  bold  mouseover:"this study: R718W: shift; R718Q like WT&#10R718W: Palmer 2016" color:yellow
+hCLC-4   731  bold  mouseover:"G731R: Palmer 2023 and Hu 2016, VERY SMALL CURRENTS&#10G731E: similar to WT but affects last base of exon 12; G731V: this study: LOF" color:red 
+hCLC-5   22   bold  mouseover:"W22G:Dent's disease, LOF" color:red
+hCLC-5   57   bold  mouseover:"G57V:Dent's disease" color:orange 
+hCLC-5   58   bold  mouseover:"W58C:Dent's disease&#10 W58L:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   65   bold  mouseover:"G65R:Dent's disease"  color:pink   fontcolor:blue
+hCLC-5   88   bold  mouseover:"G88D:Dent's disease&#10G88V:Dent's disease"  color:pink   fontcolor:blue
+hCLC-5   90   bold  mouseover:"C90W:Dent's disease"  color:pink   fontcolor:blue
+hCLC-5   101  bold  mouseover:"C101Y:Dent's disease"  color:pink   fontcolor:blue
+hCLC-5   103  bold  mouseover:"W103R:Dent's disease"  color:pink   fontcolor:blue
+hCLC-5   167  bold  mouseover:"G167" color:gray  
+hCLC-5   168  bold  mouseover:"S168" color:gray  
+hCLC-5   169  bold  mouseover:"G169" color:gray  
+hCLC-5   170  bold  mouseover:"I170" color:gray  
+hCLC-5   171  bold  mouseover:"P171" color:gray  
+hCLC-5   172  bold  mouseover:"E172"color:gray  
+hCLC-5   176  bold  mouseover:"I176N:Dent's disease"  color:pink   fontcolor:blue
+hCLC-5   179  bold  mouseover:"G179D:Dent's disease&#10 retained in ER" color:red 
+hCLC-5   200  bold  mouseover:"L200R:Dent's disease&#10 retained in ER" color:red 
+hCLC-5   203  bold  mouseover:"S203R:Dent's disease&#10 S203L "  &#10 retained in ER" color:red 
+hCLC-5   209  bold  mouseover:"G209S" color:gray   
+hCLC-5   210  bold  mouseover:"K210" color:gray  
+hCLC-5   211  bold  mouseover:"E211" color:gray  
+hCLC-5   212  bold  mouseover:"G212A:Dent's disease" color:yellow  fontcolor:black
+hCLC-5   213  bold  mouseover:"P213L:Dent's disease" color:gray  
+hCLC-5   219  bold  mouseover:"C219R:Dent's disease&#10 retained in ER" color:red  
+hCLC-5   221  bold  mouseover:"P213L:Dent's disease&#10 retained in ER" color:red
+hCLC-5   219  bold  mouseover:"C221R:Dent's disease&#10 retained in ER" color:red   
+hCLC-5   225  bold  mouseover:"L225P:Dent's disease#10 retained in ER"" color;red
+hCLC-5   231  bold  mouseover:"K231I:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   244  bold  mouseover:"S244L:Dent's disease&#10 altered stoichimetry&#10 S244Similar to WT&#10S244T altered gaiting" fontcolor:white color:blue
+hCLC-5   250  bold  mouseover:"G250R:Dent's disease" color:red
+hCLC-5   260  bold  mouseover:"G260V:Dent's disease&#10 retained in ER" color:red
+hCLC-5   261  bold  mouseover:"G261E:Dent's disease&#10 G261R"  color:red
+hCLC-5   266  bold  mouseover:"L266V:Dent's disease" color:orange
+hCLC-5   267  bold  mouseover:"E267A:Dent's disease&#10 E267V&#10 E267D to be studied" color:orangee
+hCLC-5   270  bold  mouseover:"S270R:Dent's disease &#10no currents and retained in ER&#10 S270G reduced currents" color:red
+hCLC-5   272  bold  mouseover:"Y272C:Dent's disease&#10 Y272N" color:orange
+hCLC-5   273  bold  mouseover:"F273L:Dent's disease" color:orange
+hCLC-5   277  bold  mouseover:"T277P:Dent's disease" color:red
+hCLC-5   278  bold  mouseover:"F278L:Dent's disease" color:orange
+hCLC-5   280  bold  mouseover:"R280P:Dent's disease" color: orange
+hCLC-5   293  bold  mouseover:"R293P:Dent's disease" color:red
+hCLC-5   324  bold  mouseover:"L324R:Dent's disease" color:red
+hCLC-5   333  bold  mouseover:"G333R:Dent's disease" color:red
+hCLC-5   340  bold  mouseover:"N340K:Dent's disease#10 retained in ER"" color:orange
+hCLC-5   345  bold  mouseover:"R345W:Dent's disease &#10altered stoichimetry" fontcolor:white color:blue
+hCLC-5   433  bold  mouseover:"G433R:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   452  bold  mouseover:"R452Q: " color:green fontcolor:yellow 
+hCLC-5   453  bold  mouseover:"G453" color:gray   
+hCLC-5   454  bold  mouseover:"L454" color:gray  
+hCLC-5   455  bold  mouseover:"F455" color:gray  
+hCLC-5   456  bold  mouseover:"I456" color:gray  
+hCLC-5   457  bold  mouseover:"P457" color:gray  
+hCLC-5   466  bold  mouseover:"G466D:Dent's disease&#10G462V &#10G462S" color:pink   fontcolor:blue
+hCLC-5   462  bold  mouseover:"G462D:Dent's disease" color:red
+hCLC-5   468  bold  mouseover:"L468P:Dent's disease" color:red
+hCLC-5   469  bold  mouseover:"L469P:Dent's disease&#10 retained in ER" color:red  
+hCLC-5   470  bold  mouseover:"G470R:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   502  bold  mouseover:"Y502C:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   504  bold  mouseover:"M504K:Dent's disease" color:red
+hCLC-5   506  bold  mouseover:"G506R:Dent's disease&#10 G506E" color:red
+hCLC-5   512  bold  mouseover:"G512R:Dent's disease&#10 G512D" color:red
+hCLC-5   513  bold  mouseover:"G513E:Dent's disease&#10 retained in ER#10 G513R:Dent's disease " color:red 
+hCLC-5   516  bold  mouseover:"R516W:Dent's disease&#10 R516D&#10 retained in ER" color:red 
+hCLC-5   518  bold  mouseover:"T518A:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   519  bold  mouseover:"V519D:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   520  bold  mouseover:"S520A:Dent's disease&#10retained in ER&#10 S520P retained in ER&#10 S520T" color:orange
+hCLC-5   524  bold  mouseover:"I524K:Dent's disease&#10 retained in ER" color:red 
+hCLC-5   527  bold  mouseover:"E527D:Dent's disease&#10 retained in ER&#10 E527Q" color:red 
+hCLC-5   530  bold  mouseover:"G530S:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   540  bold  mouseover:"A540P:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   545  bold  mouseover:"S545N:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   546  bold  mouseover:"K546E:Dent's disease" color:red
+hCLC-5   547  bold  mouseover:"W547G:Dent's disease&#10W547R" color:orange
+hCLC-5   558  bold  mouseover:"Y558" color:gray  
+hCLC-5   565  bold  mouseover:"N565K:Dent's disease" fontcolor:yellow color:green
+hCLC-5   567  bold  mouseover:"Y567x:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   600  bold  mouseover:"Q600x:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   601  bold  mouseover:"D601V:Dent's disease" color:orange
+hCLC-5   609  bold  mouseover:"E609x:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   617  bold  mouseover:"Y617A:Dent's disease" fontcolor:yellow color:green
+hCLC-5   618  bold  mouseover:"S618A:Dent's disease" fontcolor:yellow color:green
+hCLC-5   621  bold  mouseover:"P621L:Dent's disease" fontcolor:blue color:lightgray
+hCLC-5   629  bold  mouseover:"Q629x:Dent's disease" color:red
+hCLC-5   637  bold  mouseover:"R637x:Dent's disease" color:red
+hCLC-5   648  bold  mouseover:"R648x:Dent's disease"
+hCLC-5   657  bold  mouseover:"T657S:Dent's disease" fontcolor:yellow color:green
+hCLC-5   672  bold  mouseover:"Y672A:Dent's disease" fontcolor:yellow color:green
+hCLC-5   703  bold  mouseover:"F703S:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   704  bold  mouseover:"R704x:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   706  bold  mouseover:"L706P:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   711  bold  mouseover:"C711W:Dent's disease" color:pink   fontcolor:blue
+hCLC-5   718  bold  mouseover:"R718x:Dent's disease" color:red
+hCLC-5   725  bold  mouseover:"K725E:Dent's disease" fontcolor:blue color:lightgray
+hCLC-5   727  bold  mouseover:"D727A:Dent's disease" color:orange
+hCLC-5   729  bold  mouseover:"L729x:Dent's disease"
+hCLC-6   156  bold  mouseover:"G156" color:gray  
+hCLC-6   157  bold  mouseover:"S157" color:gray  
+hCLC-6   158  bold  mouseover:"G158" color:gray  
+hCLC-6   159  bold  mouseover:"I159" color:gray  
+hCLC-6   160  bold  mouseover:"P160" color:gray  
+hCLC-6   161  bold  mouseover:"E161"color:gray  
+hCLC-6   198  bold  mouseover:"G198" color:gray   
+hCLC-6   199  bold  mouseover:"K199" color:gray  
+hCLC-6   200  bold  mouseover:"E200" color:gray  
+hCLC-6   201  bold  mouseover:"G201" color:gray   
+hCLC-6   202  bold  mouseover:"P202" color:gray  
+hCLC-6   487  bold  mouseover:"G487" color:gray   
+hCLC-6   488  bold  mouseover:"L488" color:gray  
+hCLC-6   489  bold  mouseover:"F489" color:gray  
+hCLC-6   490  bold  mouseover:"V490" color:gray  
+hCLC-6   491  bold  mouseover:"P491" color:gray  
+hCLC-6   553  bold  mouseover:"Y553C: severe neurological disorder, Polovitskaya 2020" color:aqua  
+hCLC-6   576  bold  mouseover:"Y546" color:gray  
+hCLC-7   90   bold  mouseover:"L90P: ARO " color:green fontcolor:yellow
+hCLC-7   99   bold  mouseover:"Y99C:ADOII "  color:pink   fontcolor:blue
+hCLC-7   127  bold  mouseover:"W127G:ADOII "  color:pink   fontcolor:blue
+hCLC-7   126  bold  mouseover:"R126H:ARO&#10 PrimaryNeurodeg " color:orange  
+hCLC-7   132  bold  mouseover:"L132P:ADOII "  color:pink   fontcolor:blue
+hCLC-7   145  bold  mouseover:"D145G:ADOII "  color:blue fontcolor:white
+hCLC-7   179  bold  mouseover:"W179x:ADOII " 
+hCLC-7   203  bold  mouseover:"G203" color:gray  
+hCLC-7   204  bold  mouseover:"S204" color:gray  
+hCLC-7   205  bold  mouseover:"G205S" color:gray  
+hCLC-7   206  bold  mouseover:"I206" color:gray  
+hCLC-7   207  bold  mouseover:"P207" color:gray  
+hCLC-7   208  bold  mouseover:"Q208"color:gray 
+hCLC-7   213  bold  mouseover:"L213F:ADOII" color:blue fontcolor:white
+hCLC-7   214  bold  mouseover:"N214S+R767P:ADOII "  color:pink   fontcolor:blue
+hCLC-7   215  bold  mouseover:"G215R:ADOII&#10 Partially retained in the ER&#10 A.Teti mouse model and siRNA therapy "  fontcolor:blue color:lightgray
+hCLC-7   224  bold  mouseover:"L224R:ARO " color:red  
+hCLC-7   240  bold  mouseover:"G240R+L651P:ARO&#10 G240E "  color:pink   fontcolor:blue
+hCLC-7   245  bold  mouseover:"G245S" color:gray   
+hCLC-7   246  bold  mouseover:"K246" color:gray  
+hCLC-7   247  bold  mouseover:"E247" color:gray  
+hCLC-7   248  bold  mouseover:"G248A" color:gray  
+hCLC-7   249  bold  mouseover:"P249L:ARO&#10 P249R+S744F: ARO " color:red  
+hCLC-7   271  bold  mouseover:"R271x:ARO " 
+hCLC-7   282  bold  mouseover:"R271A" fontcolor:blue color:pink
+hCLC-7   286  bold  mouseover:"R286Q:ADOII&#10 R286W "  color:pink   fontcolor:blue
+hCLC-7   290  bold  mouseover:"S290F:ADOII&#10 S290Y ADOII "  color:pink   fontcolor:blue
+hCLC-7   297  bold  mouseover:"V297M:ARO " color:red  
+hCLC-7   299  bold  mouseover:"A299V:ARO&#10 Primary Neurodeg " color:red  
+hCLC-7   313  bold  mouseover:"E313K:ADOII "  color:pink   fontcolor:blue
+hCLC-7   316  bold  mouseover:"A316F:ADOII&#10 A316G: ADOII "  color:pink   fontcolor:blue
+hCLC-7   318  bold  mouseover:"F318L:ADOII&#10 F318S " color:red  
+hCLC-7   319  bold  mouseover:"W319R:ADOII " color:pink   fontcolor:blue
+hCLC-7   323  bold  mouseover:"L323P:ADOII" color:blue fontcolor:white
+hCLC-7   326  bold  mouseover:"R326G:ADOII " color:pink   fontcolor:blue
+hCLC-7   332  bold  mouseover:"M332V+ R767W:ARO " color:pink   fontcolor:blue
+hCLC-7   347  bold  mouseover:"G347R:ADOII " color:pink   fontcolor:blue
+hCLC-7   376  bold  mouseover:"P376L:ARO " color:orange  
+hCLC-7   403  bold  mouseover:"R403Q+G512R:ARO " color:pink   fontcolor:blue
+hCLC-7   409  bold  mouseover:"R409W:ADOII" color:pink   fontcolor:blue
+hCLC-7   470  bold  mouseover:"P470Q:ADOII " color:pink   fontcolor:blue
+hCLC-7   473  bold  mouseover:"S473N:ADOII " color:pink   fontcolor:blue
+hCLC-7   490  bold  mouseover:"L490F:ADOII" color:red  
+hCLC-7   511  bold  mouseover:"A511T:ARO&#10 heterozygous with G780W&#10 Primary Neurodeg" color:red  
+hCLC-7   512  bold  mouseover:"G512R:ARO "color:gray   
+hCLC-7   513  bold  mouseover:"V513" color:gray  
+hCLC-7   514  bold  mouseover:"F514" color:gray  
+hCLC-7   515  bold  mouseover:"I515" color:gray  
+hCLC-7   516  bold  mouseover:"P516" color:gray  
+hCLC-7   521  bold  mouseover:"G521R:ARO&#10 Primary Neurodegeneration " color:red  
+hCLC-7   526  bold  mouseover:"R526W+G240R:ARO&#10 R526Q: ARO&#10R526T: ARO " color:red  
+hCLC-7   549  bold  mouseover:"L549P:ARO " color:pink   fontcolor:blue
+hCLC-7   564  bold  mouseover:"L564P:ADOII " color:pink   fontcolor:bluecolor:pink   fontcolor:blue
+hCLC-7   582  bold  mouseover:"P582H:ARO&#10 PrimaryNeurodeg " color:red  
+hCLC-7   590  bold  mouseover:"A590T:ARO " color:red  
+hCLC-7   602  bold  mouseover:"Y506" color:gray  
+hCLC-7   614  bold  mouseover:"L614P + frame shift:ARO " color:pink   fontcolor:blue
+hCLC-7   619  bold  mouseover:"P619L:ARO " color:blue fontcolor:white
+hCLC-7   651  bold  mouseover:"L651P+G240R:ARO&#10 Primary Neurodegeneration " color:red  
+hCLC-7   677  bold  mouseover:"G677V:ADOII " color:pink   fontcolor:blue
+hCLC-7   689  bold  mouseover:"K689E: ADOII " color:pink   fontcolor:blue
+hCLC-7   691  bold  mouseover:"K691E:ADOII " color:green fontcolor:yellow
+hCLC-7   712  bold  mouseover:"R712x:ARO "
+hCLC-7   715  bold  mouseover:"Y715C:lysosomal storage disease&#10 and albinism, GOF " color:aqua
+hCLC-7   730  bold  mouseover:"E730x:ARO "
+hCLC-7   741  bold  mouseover:"G741R:ADOII " color:pink   fontcolor:blue
+hCLC-7   743  bold  mouseover:"R743W:ADOII " color:pink   fontcolor:blue
+hCLC-7   744  bold  mouseover:"S744F:ARO " color:green fontcolor:yellow  
+hCLC-7   746  bold  mouseover:"Y746Q:ADOII in BOVINE " color:blue fontcolor:white
+hCLC-7   753  bold  mouseover:"S753W:AROInt " color:pink   fontcolor:blue
+hCLC-7   758  bold  mouseover:"F758L:ADOII " color:pink   fontcolor:blue
+hCLC-7   762  bold  mouseover:"R762Q:ADOII&#10 R762L:ADOII&#10 R762W:ARO " color:blue fontcolor:white
+hCLC-7   765  bold  mouseover:"G765x:ADOII "
+hCLC-7   766  bold  mouseover:"L766P:ADOII " fontcolor:blue color:lightgray
+hCLC-7   767  bold  mouseover:"R767Q:ARO&#10 R767P: ADOII&#10 R767W: ADOII&#10 R767T: ADOII " color:blue fontcolor:white
+hCLC-7   780  bold  mouseover:"G780R:ARO&#10 Primary Neurodeg&#10 G780W:ADOII " color:red  
+hCLC-7   767  bold  mouseover:"R767P:ARO&#10 R767W:ARO " color:red  
+hCLC-7   784  bold  mouseover:"R784W:ADOII " color:pink   fontcolor:blue
+hCLC-7   788  bold  mouseover:"A788D:ADOII " color:green fontcolor:yellow
+hCLC-7   791  bold  mouseover:"R791C:ADOII " color:blue fontcolor:white 
+hCLC-Kb  30   bold  mouseover:"R30x:" 
+hCLC-Kb  61   bold  mouseover:"A61D:In GS and Bartter syndrome&#10 reduced PM expression " color:red 
+hCLC-Kb  68   bold  mouseover:"D68N:Binding site for Gf47 " color:green fontcolor:yellow  
+hCLC-Kb  72   bold  mouseover:"E72G:Binding site for Gf47 " color:green fontcolor:yellow  
+hCLC-Kb  76   bold  mouseover:"R30x:" 
+hCLC-Kb  77   bold  mouseover:"A//L:Bartter syndrome&#10 reduced PM expression " color:red  
+hCLC-Kb  81   bold  mouseover:"L81P:Bartter syndrome " color:orange  
+hCLC-Kb  92   bold  mouseover:"R92T:Bartter syndrome " color:orange  
+hCLC-Kb  115  bold  mouseover:"T115P:Bartter syndrome&#10 reduced PM expression " color:red  
+hCLC-Kb  120  bold  mouseover:"G120R:Bartter syndrome " color:orange  
+hCLC-Kb  121  bold  mouseover:"S121" color:gray  
+hCLC-Kb  122  bold  mouseover:"G122S" color:gray  
+hCLC-Kb  123  bold  mouseover:"I123" color:gray  
+hCLC-Kb  124  bold  mouseover:"P124L:Bartter syndrome " color:orange  
+hCLC-Kb  125  bold  mouseover:"E125" color:gray  
+hCLC-Kb  139  bold  mouseover:"L139P:Bartter syndrome " color:orange  
+hCLC-Kb  149  bold  mouseover:"V149E:In GB and Bartter syndrome " color:orange  
+hCLC-Kb  164  bold  mouseover:"G164C:Bartter syndrome " color:orange  
+hCLC-Kb  165  bold  mouseover:"K165R: " color:gray  
+hCLC-Kb  166  bold  mouseover:"V166" color:gray  
+hCLC-Kb  167  bold  mouseover:"G167" color:gray  
+hCLC-Kb  168  bold  mouseover:"P168" color:gray  
+hCLC-Kb  170  bold  mouseover:"V170M:Mild Bartter syndrome " color:orange  
+hCLC-Kb  204  bold  mouseover:"A204V:Mild Bartter syndrome  " color:orange  
+hCLC-Kb  210  bold  mouseover:"A210V:Bartter syndrome&#10 retained in ER " color:red  
+hCLC-Kb  216  bold  mouseover:"P216L:Bartter syndrome&#10 Impairs dimer formation " color:yellow 
+hCLC-Kb  218  bold  mouseover:"S218N:Bartter syndrome&#10 retained in ER " color:orange  
+hCLC-Kb  219  bold  mouseover:"G219C:Bartter syndrome&#10 retained in Golgi " color:orange  
+hCLC-Kb  242  bold  mouseover:"A242E:Bartter syndrome " color:red  
+hCLC-Kb  246  bold  mouseover:"G246R:Bartter syndrome&#10 reduced PM expression " color:red 
+hCLC-Kb  254  bold  mouseover:"A254V:Bartter syndrome" color:orange  
+hCLC-Kb  296  bold  mouseover:"G296D:Bartter syndrome " color:orange  
+hCLC-Kb  297  bold  mouseover:"S297R:Bartter syndrome " color:orange  
+hCLC-Kb  303  bold  mouseover:"Q303P:Bartter syndrome " color:orange  
+hCLC-Kb  335  bold  mouseover:"L335P:In GS and Bartter syndrome " color:orange 
+hCLC-Kb  337  bold  mouseover:"S337F:Bartter syndrome " color:orange   
+hCLC-Kb  349  bold  mouseover:"A349D:Bartter syndrome " color:red  
+hCLC-Kb  351  bold  mouseover:"R351P:Bartter syndrome " color:orange  
+hCLC-Kb  357  bold  mouseover:"H357Q:Bartter syndrome "  color:pink   fontcolor:blue
+hCLC-Kb  424  bold  mouseover:"G424E:Bartter syndrome&#10 G424R retained in ER " color:red   
+hCLC-Kb  425  bold  mouseover:"Y425" color:gray
+hCLC-Kb  426  bold  mouseover:"F426" color:gray
+hCLC-Kb  427  bold  mouseover:"M427" color:gray 
+hCLC-Kb  428  bold  mouseover:"P428" color:gray 
+hCLC-Kb  432  bold  mouseover:"Y432H:" color:red  
+hCLC-Kb  437  bold  mouseover:"G437C:Bartter syndrome&#10 retained in ER " color:red 
+hCLC-Kb  438  bold  mouseover:"R438H:Bartter syndrome&#10 R438C :Bartter syndrome " color:red  
+hCLC-Kb  439  bold  mouseover:"L439P:Bartter syndrome " color:red  
+hCLC-Kb  442  bold  mouseover:"E442G:Bartter syndrome " color:orange 
+hCLC-Kb  447  bold  mouseover:"I447T:Bartter syndrome "  color:pink   fontcolor:blue
+hCLC-Kb  465  bold  mouseover:"G465E:Bartter syndrome " color:red  
+hCLC-Kb  470  bold  mouseover:"G470E:Bartter syndrome&#10 G470R :Bartter syndrome  " color:orange 
+hCLC-Kb  513  bold  mouseover:"Q513x" color:gray  
+hCLC-Kb  520  bold  mouseover:"Y520" color:gray  
+hCLC-Kb  538  bold  mouseover:"R538P:Bartter syndrome&#10 might predispose to hypertension " color:orange
+hCLC-Kb  560  bold  mouseover:"K560M:Bartter syndrome " color:orange 
+hCLC-Kb  562  bold  mouseover:"K562T&#10 In CLC-Ka is a T polymorphysm??? :Bartter syndrome " color:orange
+hCLC-Kb  573  bold  mouseover:"S573Y:Bartter syndrome "  color:pink   fontcolor:blue
+hCLC-Kb  578  bold  mouseover:"K578E:Bartter syndrome "  color:pink   fontcolor:blue
+hCLC-Kb  595  bold  mouseover:"R595X:Bartter syndrome " 
+hCLC-Kb  610  bold  mouseover:"W610X:Bartter syndrome " 
+hCLC-Kb  626  bold  mouseover:"C626Y:Bartter syndrome "  color:pink   fontcolor:blue
+LEGEND "RED BAR" "CLC Topology"  fontcolor:white color:red bold
+LEGEND "GRAY" " Conserved Residues" color:lightgray bold
+LEGEND  "GREEN" " WT-like" color:green fontocolor:yellow bold
+LEGEND "RED" " Not functional" color:red bold
+LEGEND "ORANGE" " Reduced currents" color:orange bold
+LEGEND "YELLOW" " Shifted voltage dependence" color:yellow fontcolor:black bold
+LEGEND "CYAN" " Gain of function" color:aqua 
+LEGEND "BLUE" " Altered ion-transport properties" color:blue fontcolor:white bold
+LEGEND "PINK" " No functional data available" fontcolor:blue color:pink bold
