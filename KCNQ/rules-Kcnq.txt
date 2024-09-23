@@ -1,0 +1,35 @@
+ALL hKCNQ1  105 113 color:red bold fontcolor:white S0_
+ALL hKCNQ1  119 144 color:red bold fontcolor:white S1_
+ALL hKCNQ1  151 179 color:red bold fontcolor:white S2_
+ALL hKCNQ1  186 194 color:red bold fontcolor:white Linker
+ALL hKCNQ1  196 214 color:red bold fontcolor:white S3_
+ALL hKCNQ1  225 242 color:red bold fontcolor:white S4_
+ALL hKCNQ1  245 256 color:red bold fontcolor:white Linker
+ALL hKCNQ1  259 283 color:red bold fontcolor:white S5_
+ALL hKCNQ1  299 312 color:red bold fontcolor:white Pore_
+ALL hKCNQ1  321 359 color:red bold fontcolor:white S6_
+ALL hKCNQ1  363 384 color:red bold fontcolor:white HA_
+ALL hKCNQ1  509 532 color:red bold fontcolor:white HB_
+ALL hKCNQ1  537 566 color:red bold fontcolor:white HC_
+
+hKCNQ1 114 bold mouseover:"L114P: Long QT syndrome" color:red
+hKCNQ1 117 bold mouseover:"P117T: Long QT syndrome 1" color:red
+
+hKCNQ1 	202 bold  color:yellow mouseover:"D202H: &#10 D202N: right shifted"
+hKCNQ1   204 bold  color:yellow mouseover:"I204F: &#10 I204N: right shifted"
+hKCNQ1   209 italic color:red fontcolor:white mouseover:"S209F: left shifted and reducd current density, Eldstrom et al, JGP 2010"
+hKCNQ1   408 bold mouseover:"P408A: polymorphism, Kapa et al, Circulation 2009" fontcolor:yellow color:green
+hKCNQ2   144 bold italic color:red fontcolor:white mouseover:"R144G: left shifted, Miceli et al, eBiomedicine 2022"
+hKCNQ2   265 bold color:red mouseover:"A265V: non functional, Ye et al, Front. Mol. Neurosc. 2023"
+
+hKCNQ1 160 bold mouseover:"E160: interacting S4: Sun J, et al. Cell. 2020." fontcolor:red
+hKCNQ1 167 bold mouseover:"F167K: interacting S4: Sun J, et al. Cell. 2020." fontcolor:red
+hKCNQ1 170 bold mouseover:"E170: interacting S4: Sun J, et al. Cell. 2020." fontcolor:red
+
+
+hKCNQ1 228 bold mouseover:"R228: voltage sensor: Sun J, et al. Cell. 2020." fontcolor:blue
+hKCNQ1 231 bold mouseover:"R231: voltage sensor: Sun J, et al. Cell. 2020." fontcolor:blue
+hKCNQ1 234 bold mouseover:"Q234: voltage sensor: Sun J, et al. Cell. 2020." fontcolor:blue
+hKCNQ1 237 bold mouseover:"R237: voltage sensor: Sun J, et al. Cell. 2020." fontcolor:blue
+hKCNQ1 240 bold mouseover:"H240: voltage sensor: Sun J, et al. Cell. 2020." fontcolor:blue
+hKCNQ1 242 bold mouseover:"R242: voltage sensor: Sun J, et al. Cell. 2020." fontcolor:blue
