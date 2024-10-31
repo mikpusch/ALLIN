@@ -2,6 +2,7 @@
   var NumberOfStructures; // = 9; //Number(document.getElementById('NSEQ').innerHTML);
   var currentModel; // index of current model
   var viewer;
+  var FirstPick=false;
 
   function increaseFontSize(){
 	  let tables = document.getElementsByTagName('table');
@@ -16,6 +17,20 @@
   }
 
 
+  function ResidueIsResolved(index){
+	  if (viewer.models.length<1){
+		  return false;
+	  }
+	  if (viewer.models[0].atoms.length<1){
+		  return false;
+	  }
+	  for (let i=0; i<viewer.models[0].atoms.length; i++){
+		  if ((viewer.models[0].atoms[i].resi == index) && (viewer.models[0].atoms[i].chain == "A")){
+			  return true;
+		  }
+	  }
+	  return false;
+  }
   function callSelectFocus(index, residue){
 	  document.getElementById('NSEQ').innerHTML =' ';
 	  if (index != currentModel){
@@ -27,17 +42,30 @@
 	  {
 		  res1=1;
 	  }
+	  if (!ResidueIsResolved(res1)){
+		  alert("residue " + res1 + " is not resolved in chain A of " + NameArray[index]);
+		  return;
+	  }
 	  let rangeString = res1.toString(); // + '-' + res2.toString();
-
+	  
 	  let resString = residue.toString();
 
        viewer.setStyle({resi:[rangeString]},{stick:{color:"pink",thickness:1.0}, cartoon:{color:"green",thickness:1.0} });
 //	   viewer.setStyle({hetflag: true},{stick:{colorscheme:"greenCarbon"}});
 //
 	   CheckHetatoms();
+
 	   viewer.addResLabels({resi:[resString], chain:'A'}, {font: 'Arial', fontColor:'white',fontSize:12, showBackground:true});
-	   viewer.render(); 
-	   viewer.zoomTo({resi:[rangeString], chain:'A'}, 1000);
+	   viewer.render();
+	   let region = {resi:[rangeString], chain:'A'};
+//	   viewer.zoomTo({resi:[rangeString], chain:'A'}, 1000);
+	   viewer.center(region, 400);
+	   if (FirstPick){
+		   viewer.zoom(3, 400);
+	   }
+	   else{
+	   }
+	   FirstPick = false;
   }
 
 
@@ -46,6 +74,7 @@
 	}
 
    function CreateViewer(i){
+      FirstPick = true;
 	  currentModel = i;
 
 	  let elementstring = '#container-0';
@@ -58,7 +87,7 @@
 
 	 let pdb = PDBArray[i]//etPdbUri(i);
 
-//	 console.log(pdb);
+
 	 setTextModel(NameArray[i]);
 
 		 viewer.addModel( pdb, "pdb" );                       /* load data */
