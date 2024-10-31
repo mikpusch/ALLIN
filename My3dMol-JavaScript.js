@@ -59,9 +59,9 @@
 	   viewer.render();
 	   let region = {resi:[rangeString], chain:'A'};
 //	   viewer.zoomTo({resi:[rangeString], chain:'A'}, 1000);
-	   viewer.center(region, 400);
+	   viewer.center(region, 10);
 	   if (FirstPick){
-		   viewer.zoom(3, 400);
+		   viewer.zoom(3, 150);
 	   }
 	   else{
 	   }
