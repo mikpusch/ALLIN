@@ -389,7 +389,7 @@ hCLC-6   489  bold  mouseover:"F489" color:gray
 hCLC-6   490  bold  mouseover:"V490" color:gray  
 hCLC-6   491  bold  mouseover:"P491" color:gray  
 hCLC-6   553  bold  mouseover:"Y553C: severe neurological disorder, Polovitskaya 2020" color:aqua  
-hCLC-6   576  bold  mouseover:"Y546" color:gray  
+hCLC-6   576  bold  mouseover:"Y576" color:gray  
 hCLC-7   90   bold  mouseover:"L90P: ARO " color:green fontcolor:yellow
 hCLC-7   99   bold  mouseover:"Y99C:ADOII "  color:pink   fontcolor:blue
 hCLC-7   127  bold  mouseover:"W127G:ADOII "  color:pink   fontcolor:blue
