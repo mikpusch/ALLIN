@@ -9,3 +9,5 @@ Picollo & Pusch, ALLIN: a tool for annotation of a protein alignment combined wi
 visualization. 2024. J Gen Physiol, doi: 10.1085/jgp.202413635
 
 Please cite the publication when you utilize ALLIN.
+
+This work was supported in part by the Italian Ministry of Foreign Affairs and International Cooperation”, grant number SE24GR07
